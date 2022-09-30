@@ -1,0 +1,2 @@
+file sql chạy excuce của SQL trong đó 1 thêm 1 triger để thay cho update case 
+file code .java nằm trong cây thư mục src 
