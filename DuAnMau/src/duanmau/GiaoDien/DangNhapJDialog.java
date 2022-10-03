@@ -4,6 +4,10 @@
  */
 package duanmau.GiaoDien;
 
+import duanmau.DAO.NhanVienDAO;
+import duanmau.Help.Dialog;
+import duanmau.Help.Login;
+import duanmau.entity.NhanVien;
 import javax.swing.ImageIcon;
 
 /**
@@ -11,7 +15,7 @@ import javax.swing.ImageIcon;
  * @author NguyenMinhHau_PS24488
  */
 public class DangNhapJDialog extends javax.swing.JDialog {
-
+    NhanVienDAO dao = new NhanVienDAO();
     /**
      * Creates new form DangNhapJDialog
      */
@@ -20,7 +24,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         initComponents();
         init();
     }
-    
+
     private void init() {
         setLocationRelativeTo(this);
     }
@@ -39,7 +43,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txttendangnhap = new javax.swing.JTextField();
-        txtnhapkhau = new javax.swing.JPasswordField();
+        txtmatkhau = new javax.swing.JPasswordField();
         btndangnhap = new javax.swing.JButton();
         btnthoat = new javax.swing.JButton();
 
@@ -62,7 +66,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
         txttendangnhap.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        txtnhapkhau.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtmatkhau.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         btndangnhap.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btndangnhap.setText("Đăng nhập");
@@ -95,7 +99,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                         .addComponent(btnthoat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtnhapkhau)
+                    .addComponent(txtmatkhau)
                     .addComponent(txttendangnhap))
                 .addContainerGap(30, Short.MAX_VALUE))
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -114,7 +118,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addGap(10, 10, 10)
-                        .addComponent(txtnhapkhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtmatkhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btndangnhap)
@@ -183,7 +187,27 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField txtnhapkhau;
+    private javax.swing.JPasswordField txtmatkhau;
     private javax.swing.JTextField txttendangnhap;
     // End of variables declaration//GEN-END:variables
+   
+    public void Login() {
+       String name = txttendangnhap.getText();
+       String matkhau = txtmatkhau.getText();
+       NhanVien nv = dao.SelectID(name);
+       if( nv == null){
+           Dialog.Message(this, "Tên đăng nhập không tồn tại !");
+       }else if(!matkhau.equals(nv.getPasswords())){
+           Dialog.Message(this, "Mật khẩu không chính xác !");
+       }else{
+           Login.user = nv;
+           this.dispose();
+       }
+    }
+
+    public void exit() {
+        if (Dialog.Confirm(this, "Bạn có muốn thoát không ?")) {
+            System.exit(0);
+        }
+    }
 }

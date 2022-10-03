@@ -40,7 +40,7 @@
                   </Group>
                   <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtnhapkhau" max="32767" attributes="0"/>
+                  <Component id="txtmatkhau" max="32767" attributes="0"/>
                   <Component id="txttendangnhap" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="30" max="32767" attributes="0"/>
@@ -62,7 +62,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="txtnhapkhau" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtmatkhau" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btndangnhap" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -116,7 +116,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="txtnhapkhau">
+    <Component class="javax.swing.JPasswordField" name="txtmatkhau">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="16" style="0"/>

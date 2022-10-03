@@ -4,10 +4,8 @@
  */
 package duanmau.GiaoDien;
 
-import duanmau.Help.XImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
