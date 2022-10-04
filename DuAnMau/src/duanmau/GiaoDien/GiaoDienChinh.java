@@ -4,10 +4,17 @@
  */
 package duanmau.GiaoDien;
 
+import duanmau.Help.Dialog;
+import duanmau.Help.Login;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -89,6 +96,11 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         btnchuyende.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnchuyende.setMargin(new java.awt.Insets(2, 15, 2, 15));
         btnchuyende.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnchuyende.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnchuyendeActionPerformed(evt);
+            }
+        });
         tlbthanhcongcu.add(btnchuyende);
 
         btnnguoihoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/people-icon.png"))); // NOI18N
@@ -97,6 +109,11 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         btnnguoihoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnnguoihoc.setMargin(new java.awt.Insets(2, 15, 2, 15));
         btnnguoihoc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnnguoihoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnguoihocActionPerformed(evt);
+            }
+        });
         tlbthanhcongcu.add(btnnguoihoc);
 
         btnkhoahoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/Courses-icon.png"))); // NOI18N
@@ -105,6 +122,11 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         btnkhoahoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnkhoahoc.setMargin(new java.awt.Insets(2, 15, 2, 15));
         btnkhoahoc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnkhoahoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnkhoahocActionPerformed(evt);
+            }
+        });
         tlbthanhcongcu.add(btnkhoahoc);
 
         btnhocvien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/Student-id-icon.png"))); // NOI18N
@@ -113,6 +135,11 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         btnhocvien.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnhocvien.setMargin(new java.awt.Insets(2, 15, 2, 15));
         btnhocvien.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnhocvien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhocvienActionPerformed(evt);
+            }
+        });
         tlbthanhcongcu.add(btnhocvien);
         tlbthanhcongcu.add(jSeparator1);
 
@@ -122,6 +149,11 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         btnhuongdan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnhuongdan.setMargin(new java.awt.Insets(2, 15, 2, 15));
         btnhuongdan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnhuongdan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhuongdanActionPerformed(evt);
+            }
+        });
         tlbthanhcongcu.add(btnhuongdan);
         tlbthanhcongcu.add(jSeparator2);
 
@@ -131,6 +163,11 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         btndangxuat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btndangxuat.setMargin(new java.awt.Insets(2, 15, 2, 15));
         btndangxuat.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btndangxuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndangxuatActionPerformed(evt);
+            }
+        });
         tlbthanhcongcu.add(btndangxuat);
 
         btnthoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/Log-Out-icon.png"))); // NOI18N
@@ -139,6 +176,11 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         btnthoat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnthoat.setMargin(new java.awt.Insets(2, 15, 2, 15));
         btnthoat.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnthoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthoatActionPerformed(evt);
+            }
+        });
         tlbthanhcongcu.add(btnthoat);
 
         thanhtrangthai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
@@ -192,17 +234,32 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         mnidangnhap.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnidangnhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/Login-icon.png"))); // NOI18N
         mnidangnhap.setText("Đăng nhập");
+        mnidangnhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnidangnhapActionPerformed(evt);
+            }
+        });
         mnuHethong.add(mnidangnhap);
 
         mnidangxuat.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnidangxuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/Apps-preferences-system-login-icon.png"))); // NOI18N
         mnidangxuat.setText("Đăng xuất");
+        mnidangxuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnidangxuatActionPerformed(evt);
+            }
+        });
         mnuHethong.add(mnidangxuat);
         mnuHethong.add(jSeparator3);
 
         mnidoimatkhau.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnidoimatkhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/secrecy-icon.png"))); // NOI18N
         mnidoimatkhau.setText("Đổi mật khẩu");
+        mnidoimatkhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnidoimatkhauActionPerformed(evt);
+            }
+        });
         mnuHethong.add(mnidoimatkhau);
         mnuHethong.add(jSeparator4);
 
@@ -224,16 +281,31 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         mnichuyende.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnichuyende.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/Documents-icon.png"))); // NOI18N
         mnichuyende.setText("Chuyên đề");
+        mnichuyende.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnichuyendeActionPerformed(evt);
+            }
+        });
         mnuQuanli.add(mnichuyende);
 
         mnikhoahoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnikhoahoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/Courses-icon.png"))); // NOI18N
         mnikhoahoc.setText("Khóa học");
+        mnikhoahoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnikhoahocActionPerformed(evt);
+            }
+        });
         mnuQuanli.add(mnikhoahoc);
 
         mninguoihoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mninguoihoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/people-icon.png"))); // NOI18N
         mninguoihoc.setText("Người học");
+        mninguoihoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mninguoihocActionPerformed(evt);
+            }
+        });
         mnuQuanli.add(mninguoihoc);
 
         mnihocvien.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -265,6 +337,11 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         mnibangdiem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         mnibangdiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/graph-icon.png"))); // NOI18N
         mnibangdiem.setText("Bảng điểm");
+        mnibangdiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnibangdiemActionPerformed(evt);
+            }
+        });
         mnuThongke.add(mnibangdiem);
         mnuThongke.add(jSeparator6);
 
@@ -281,11 +358,21 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         mnidiemchuyende.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         mnidiemchuyende.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/chart-icon.png"))); // NOI18N
         mnidiemchuyende.setText("Điểm chuyên đề");
+        mnidiemchuyende.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnidiemchuyendeActionPerformed(evt);
+            }
+        });
         mnuThongke.add(mnidiemchuyende);
 
         mnidoanhthu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         mnidoanhthu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/cash-icon.png"))); // NOI18N
         mnidoanhthu.setText("Doanh thu");
+        mnidoanhthu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnidoanhthuActionPerformed(evt);
+            }
+        });
         mnuThongke.add(mnidoanhthu);
 
         mnbMenu.add(mnuThongke);
@@ -296,12 +383,22 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         mnihuongdan.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         mnihuongdan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/guide-icon.png"))); // NOI18N
         mnihuongdan.setText("Hướng dẫn sử dụng");
+        mnihuongdan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnihuongdanActionPerformed(evt);
+            }
+        });
         mnuTrogiup.add(mnihuongdan);
         mnuTrogiup.add(jSeparator7);
 
         mnigioithieu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnigioithieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/information-icon.png"))); // NOI18N
         mnigioithieu.setText("Giới thiệu sản phẩm");
+        mnigioithieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnigioithieuActionPerformed(evt);
+            }
+        });
         mnuTrogiup.add(mnigioithieu);
 
         mnbMenu.add(mnuTrogiup);
@@ -332,19 +429,114 @@ public class GiaoDienChinh extends javax.swing.JFrame {
 
     private void mnithoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnithoatActionPerformed
         // TODO add your handling code here:
+        this.ketthuc();
     }//GEN-LAST:event_mnithoatActionPerformed
 
     private void mnihocvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnihocvienActionPerformed
         // TODO add your handling code here:
+        this.openHocvien();
     }//GEN-LAST:event_mnihocvienActionPerformed
 
     private void mninhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mninhanvienActionPerformed
         // TODO add your handling code here:
+        this.openNhanVien();
     }//GEN-LAST:event_mninhanvienActionPerformed
 
     private void mniluongnguoihocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniluongnguoihocActionPerformed
         // TODO add your handling code here:
+        this.openThongke(1);
     }//GEN-LAST:event_mniluongnguoihocActionPerformed
+
+    private void mnidangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidangnhapActionPerformed
+
+    }//GEN-LAST:event_mnidangnhapActionPerformed
+
+    private void mnidangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidangxuatActionPerformed
+        // TODO add your handling code here:
+        this.dangxuat();
+    }//GEN-LAST:event_mnidangxuatActionPerformed
+
+    private void mnidoimatkhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidoimatkhauActionPerformed
+        // TODO add your handling code here:
+        new Doimatkhau(this, true).setVisible(true);
+    }//GEN-LAST:event_mnidoimatkhauActionPerformed
+
+    private void mnichuyendeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnichuyendeActionPerformed
+        // TODO add your handling code here:
+        this.openChuyende();
+    }//GEN-LAST:event_mnichuyendeActionPerformed
+
+    private void btnchuyendeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnchuyendeActionPerformed
+        // TODO add your handling code here:
+        this.openChuyende();
+
+    }//GEN-LAST:event_btnchuyendeActionPerformed
+
+    private void mnikhoahocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnikhoahocActionPerformed
+        // TODO add your handling code here:
+        this.openKhoahoc();
+    }//GEN-LAST:event_mnikhoahocActionPerformed
+
+    private void btnkhoahocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkhoahocActionPerformed
+        // TODO add your handling code here:
+        this.openKhoahoc();
+    }//GEN-LAST:event_btnkhoahocActionPerformed
+
+    private void mninguoihocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mninguoihocActionPerformed
+        // TODO add your handling code here:
+        this.openNguoiHoc();
+    }//GEN-LAST:event_mninguoihocActionPerformed
+
+    private void btnnguoihocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnguoihocActionPerformed
+        // TODO add your handling code here:
+        this.openNguoiHoc();
+    }//GEN-LAST:event_btnnguoihocActionPerformed
+
+    private void btnhocvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocvienActionPerformed
+        // TODO add your handling code here:
+        this.openHocvien();
+
+    }//GEN-LAST:event_btnhocvienActionPerformed
+
+    private void mnibangdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnibangdiemActionPerformed
+        // TODO add your handling code here:
+        this.openThongke(0);
+    }//GEN-LAST:event_mnibangdiemActionPerformed
+
+    private void mnidiemchuyendeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidiemchuyendeActionPerformed
+        // TODO add your handling code here:
+        this.openThongke(3);
+    }//GEN-LAST:event_mnidiemchuyendeActionPerformed
+
+    private void mnidoanhthuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidoanhthuActionPerformed
+        // TODO add your handling code here:
+        this.openThongke(4);
+    }//GEN-LAST:event_mnidoanhthuActionPerformed
+
+    private void mnihuongdanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnihuongdanActionPerformed
+        // TODO add your handling code here:
+        this.openHuongdan();
+    }//GEN-LAST:event_mnihuongdanActionPerformed
+
+    private void mnigioithieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnigioithieuActionPerformed
+        // TODO add your handling code here:
+        this.openGioithieu();
+    }//GEN-LAST:event_mnigioithieuActionPerformed
+
+    private void btnhuongdanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhuongdanActionPerformed
+        // TODO add your handling code here:
+        this.openHuongdan();
+    }//GEN-LAST:event_btnhuongdanActionPerformed
+
+    private void btndangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndangxuatActionPerformed
+        // TODO add your handling code here:
+        this.dangxuat();
+    }//GEN-LAST:event_btndangxuatActionPerformed
+
+    private void btnthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthoatActionPerformed
+        // TODO add your handling code here:
+        this.ketthuc();
+    }//GEN-LAST:event_btnthoatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,6 +631,83 @@ public class GiaoDienChinh extends javax.swing.JFrame {
                 lbgio.setText(clock);
             }
         }).start();
+    }
+
+    public void dangxuat() {
+        Login.clear();
+        new DangNhapJDialog(this, true).setVisible(true);
+    }
+
+    public void ketthuc() {
+        if (Dialog.Confirm(this, "Bạn có muốn kết thúc làm việc ! ")) {
+            System.exit(0);
+        }
+    }
+
+    public void openThongke(int index) {
+        if (Login.isCheck()) {
+            if (index == 4 && !Login.isManager()) {
+                Dialog.Message(this, "Bạn không có quyền xem doanh thu");
+            } else {
+                Thongke tk = new Thongke(this, true);
+                tk.setVisible(true);
+                tk.setTabs(index);
+            }
+        } else {
+            Dialog.Message(this, "Vui lòng đăng nhập");
+        }
+    }
+
+    public void openChuyende() {
+        if (Login.isCheck()) {
+            new Quanlichuyende(this, true).setVisible(true);
+        } else {
+            Dialog.Message(this, "Vui lòng đăng nhập");
+        }
+    }
+
+    public void openHocvien() {
+        if (Login.isCheck()) {
+            new Quanlihocvien(this, true).setVisible(true);
+        } else {
+            Dialog.Message(this, "Vui lòng đăng nhập");
+        }
+    }
+
+    public void openKhoahoc() {
+        if (Login.isCheck()) {
+            new Quanlikhoahoc(this, true).setVisible(true);
+        } else {
+            Dialog.Message(this, "Vui lòng đăng nhập");
+        }
+    }
+
+    public void openNguoiHoc() {
+        if (Login.isCheck()) {
+            new Quanlinguoihoc(this, true).setVisible(true);
+        } else {
+            Dialog.Message(this, "Vui lòng đăng nhập");
+        }
+    }
+
+    public void openNhanVien() {
+        if (Login.isCheck()) {
+            new Quanlinhanvien(this, true).setVisible(true);
+        } else {
+            Dialog.Message(this, "Vui lòng đăng nhập");
+        }
+    }
+
+    public void openGioithieu() {
+        new Gioithieu(this, true).setVisible(true);
+    }
+
+    public void openHuongdan() {
+        try {
+            Desktop.getDesktop().browse(new File("help/index.html").toURI());
+        } catch (IOException ex) {
+            Dialog.Message(this, "Không tìm được file hướng dẫn");
+        }
     }
 
     public void setLayout() {

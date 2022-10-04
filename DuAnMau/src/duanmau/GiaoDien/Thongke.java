@@ -10,18 +10,23 @@ import javax.swing.ImageIcon;
  *
  * @author NguyenMinhHau_PS24488
  */
-public class Thongke extends javax.swing.JFrame {
+public class Thongke extends javax.swing.JDialog {
 
     /**
      * Creates new form Thongke
      */
-    public Thongke() {
+    public Thongke(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         init();
     }
-
+    
     private void init() {
         setLocationRelativeTo(null);
+    }
+    
+    public void setTabs(int i) {
+        tab.setSelectedIndex(i);
     }
 
     /**
@@ -57,6 +62,7 @@ public class Thongke extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/duanmau/image/icon/icon.png")).getImage());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setText("Tổng hợp thống kê");
 
         tab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -319,20 +325,27 @@ public class Thongke extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Thongke.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DangNhapJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Thongke.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DangNhapJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Thongke.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DangNhapJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Thongke.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DangNhapJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Thongke().setVisible(true);
+                Thongke dialog = new Thongke(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
