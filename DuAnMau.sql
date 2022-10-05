@@ -7,6 +7,11 @@ create table NhanVien
  Roles bit not null,
  Primary Key(MaNV)
  )
+-- INSERT INTO NhanVien (MaNV, Passwords, Fullname, Roles) VALUES (?, ?, ?, ?)
+--UPDATE NhanVien SET Passwords = ?, Fullname = ?, Roles = ? WHERE MaNV = ?
+--DELETE FROM NhanVien WHERE MaNV = ?
+--SELECT * FROM NhanVien WHERE MaNV = ?
+
  create table ChuyenDe
  ( MaCD Nchar(5) not null,
  TenCD nvarchar(50) not null,
@@ -16,6 +21,11 @@ create table NhanVien
  MoTa nvarchar(255) not null,
  Primary Key(MaCD)
  )
+--INSERT INTO ChuyenDe(MaCD,TenCD,HocPhi,ThoiLuong,Hinh,MoTa) VALUES (?, ?, ?, ?,?,?)
+--UPDATE ChuyenDe SET TenCD=?,HocPhi=?,ThoiLuong=?,Hinh=?,MoTa=? WHERE MaCD = ?
+--DELETE FROM ChuyenDe WHERE MaCD = ?
+--SELECT * FROM ChuyenDe WHERE MaCD = ?
+
  Go
  Create table KhoaHoc
 
@@ -32,6 +42,11 @@ create table NhanVien
   Foreign key(MaNV) references NhanVien(MaNV) on delete no action on update cascade
   
   )
+--INSERT INTO KhoaHoc (MaKH,MaCD,HocPhi,ThoiLuong,NgayKG,GhiChu,MaNV,NgayTao) VALUES (?, ?, ?, ?,?,?,?,?)
+--UPDATE KhoaHoc SET MaCD,HocPhi= ?,ThoiLuong= ?,NgayKG= ?,GhiChu= ?,MaNV= ?,NgayTao= ? WHERE MaKH = ?
+--DELETE FROM KhoaHoc WHERE MaKH = ?
+--SELECT * FROM KhoaHoc WHERE MaKH = ?
+
   --GO
   Create table NguoiHoc
   (MaNH nchar(7) not null,
@@ -46,6 +61,12 @@ create table NhanVien
   Primary key(MaNH),
   Foreign key(MaNV) REFERENCES NhanVien(MaNV) on delete no action on update cascade
   )
+
+--INSERT INTO NguoiHoc (MaNH,Hoten,NgaySinh,GioiTinh,DienThoai,Email,GhiChu,MaNV,NgayDK) VALUES (?, ?, ?, ?,?,?,?,?,?)
+--UPDATE NguoiHoc SET Hoten= ?,NgaySinh= ?,GioiTinh= ?,DienThoai= ?,Email= ?,GhiChu= ?,MaNV= ?,NgayDK= ? WHERE MaNH = ?
+--DELETE FROM NguoiHoc WHERE MaNH = ?
+--SELECT * FROM NguoiHoc WHERE MaNH = ?
+
   GO
 
   Create table HocVien
@@ -58,6 +79,11 @@ create table NhanVien
   Foreign key(MaKH) REFERENCES KhoaHoc(MaKH) on delete no action 
   --Foreign key(MaKH) REFERENCES KhoaHoc(MaKH) on delete no action on update cascade
   )
+--INSERT INTO HocVien(MaHV,MaKH,MaNH,Grade) VALUES (?, ?, ?, ?)
+--UPDATE HocVien SET MaKH= ?,MaNH= ?,Grade= ? WHERE MaHV = ?
+--DELETE FROM HocVien WHERE MaHV = ?
+--SELECT * FROM HocVien WHERE MaHV = ?
+
   CREATE TRIGGER update_HocVien_KhoaHoc ON KhoaHoc for update
   AS 
   begin

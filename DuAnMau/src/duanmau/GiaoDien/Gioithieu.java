@@ -4,6 +4,8 @@
  */
 package duanmau.GiaoDien;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author NguyenMinhHau_PS24488
@@ -16,6 +18,8 @@ public class Gioithieu extends javax.swing.JDialog {
     public Gioithieu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(this);
+        about.setRequestFocusEnabled(false);
     }
 
     /**
@@ -27,19 +31,71 @@ public class Gioithieu extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        trangbia = new javax.swing.JPanel();
+        hinhnen = new javax.swing.JLabel();
+        about = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Giới thiệu");
+        setIconImage(new ImageIcon(getClass().getResource("/duanmau/image/icon/logo.jpg")).getImage());
+        setPreferredSize(new java.awt.Dimension(860, 560));
+        setResizable(false);
+        setSize(new java.awt.Dimension(850, 550));
+
+        trangbia.setBackground(new java.awt.Color(255, 255, 255));
+        trangbia.setForeground(new java.awt.Color(255, 255, 255));
+
+        hinhnen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/FPT_Polytechnic.png"))); // NOI18N
+
+        about.setEditable(false);
+        about.setColumns(20);
+        about.setLineWrap(true);
+        about.setRows(5);
+        about.setText("Ngày nay, điện thoại và các thiết bị thông minh đã trở nên phổ biến và dần chiếm ưu thế hơn máy tính truyền thống. Trên 5 tỷ thiết bị lớn nhỏ từ các trung tâm dữ liệu, tài chính ngân hàng đều được lập trình bằng ngôn ngữ JAVA. Vì vậy những chuyên gia thành thạo ngôn ngữ JAVA luôn nhận được đãi ngộ rất tốt từ doanh nghiệp, công ty phát triển phần mềm, cũng như cơ hội thăng tiến rộng mở.\n\nKiểm thử phần mềm đóng vai trò quan trọng để bảo đảm chất lượng phần mềm và là hoạt động mang tính sống còn trong các dự án sản xuất hoặc gia công phần mềm. Vì vậy, kiểm thử phần mềm đã trở thành qui trình bắt buộc trong các dự án phát triển phần mềm trên thế giới và đang trở thành xu hướng tất yếu ở Việt Nam.\n\nĐón đầu xu thế đó, chuyên ngành Phát triển phần mềm của FPT Polytechnic hướng tới mục tiêu đào tạo những chuyên viên chuyên sâu lập trình JAVA, đồng thời có thể trở thành các chuyên viên kiểm thử phần mềm chuyên nghiệp.");
+        about.setWrapStyleWord(true);
+        about.setInheritsPopupMenu(true);
+        about.setMaximumSize(new java.awt.Dimension(3109, 2147483647));
+        about.setRequestFocusEnabled(false);
+
+        javax.swing.GroupLayout trangbiaLayout = new javax.swing.GroupLayout(trangbia);
+        trangbia.setLayout(trangbiaLayout);
+        trangbiaLayout.setHorizontalGroup(
+            trangbiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 860, Short.MAX_VALUE)
+            .addGroup(trangbiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(trangbiaLayout.createSequentialGroup()
+                    .addGap(25, 25, 25)
+                    .addGroup(trangbiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(hinhnen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(about, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(25, Short.MAX_VALUE)))
+        );
+        trangbiaLayout.setVerticalGroup(
+            trangbiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 588, Short.MAX_VALUE)
+            .addGroup(trangbiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(trangbiaLayout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(hinhnen, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(20, 20, 20)
+                    .addComponent(about, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(21, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addComponent(trangbia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(trangbia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -87,5 +143,8 @@ public class Gioithieu extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea about;
+    private javax.swing.JLabel hinhnen;
+    private javax.swing.JPanel trangbia;
     // End of variables declaration//GEN-END:variables
 }

@@ -47,7 +47,7 @@ public class NhanVienDAO extends MainDAO<NhanVien, String> {
 
     @Override
     public List<NhanVien> SelectAll() {
-      return this.SelectBySql(select_sql);
+        return this.SelectBySql(select_sql);
     }
 
     @Override
@@ -61,22 +61,22 @@ public class NhanVienDAO extends MainDAO<NhanVien, String> {
 //                entity.setFullname(rs.getString("Fullname"));
 //                entity.setPasswords(rs.getString("Passwords"));
 //                entity.setRoles(rs.getBoolean("Roles"));
-                NhanVien entity = new NhanVien(rs.getString("MaNV"),rs.getString("Fullname"),rs.getString("Passwords"),rs.getBoolean("Roles"));
+                NhanVien entity = new NhanVien(rs.getString("MaNV"), rs.getString("Passwords"), rs.getString("Fullname"), rs.getBoolean("Roles"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
             return list;
-        } catch (SQLException ex) {
-         throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
 
     @Override
     public NhanVien SelectID(String id) {
-       List<NhanVien> list = this.SelectBySql(select_id_sql, id);
-       if(list.isEmpty()){
-           return null;
-       }
-       return list.get(0);
+        List<NhanVien> list = this.SelectBySql(select_id_sql, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 }

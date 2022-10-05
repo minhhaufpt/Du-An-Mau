@@ -132,6 +132,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
     private void btndangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndangnhapActionPerformed
         // TODO add your handling code here:
+        this.Login();
     }//GEN-LAST:event_btndangnhapActionPerformed
 
     private void btnthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthoatActionPerformed

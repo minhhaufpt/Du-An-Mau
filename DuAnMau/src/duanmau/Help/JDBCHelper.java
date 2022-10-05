@@ -6,6 +6,8 @@ package duanmau.Help;
 
 import duanmau.ConnectSQLSever.ConnectSQLSever;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,12 +18,12 @@ public class JDBCHelper {
     private static Connection con = null;
 
     public JDBCHelper() throws Exception {
-        ConnectSQLSever connect = new ConnectSQLSever();
-        con = connect.getConnection();
     }
 
 // Set giá trị cho câu lệnh SQL 
-    public static PreparedStatement getSTMT(String sql, Object... args) throws SQLException {
+    public static PreparedStatement getSTMT(String sql, Object... args) throws SQLException, Exception {
+        ConnectSQLSever connect = new ConnectSQLSever();
+        con = connect.getConnection();
         PreparedStatement STMT = null;
         if (sql.trim().startsWith("{")) {
             STMT = con.prepareCall(sql);
@@ -31,15 +33,16 @@ public class JDBCHelper {
         for (int i = 0; i < args.length; i++) {
             STMT.setObject(i + 1, args[i]);
         }
+//        con.close();
         return STMT;
     }
 
     public static ResultSet Query(String sql, Object... args) throws SQLException {
-        PreparedStatement STMT = JDBCHelper.getSTMT(sql, args);
         try {
+            PreparedStatement STMT = JDBCHelper.getSTMT(sql, args);
             return STMT.executeQuery();
-        } finally {
-            con.close();
+        } catch (Exception ex) {
+           throw new RuntimeException(ex);
         }
     }
 
@@ -49,7 +52,7 @@ public class JDBCHelper {
             try {
                 return STMT.executeUpdate();
             } finally {
-                con.close();
+//                con.close();
             }
         } catch (Exception e) {
             throw new RuntimeException();
@@ -63,10 +66,10 @@ public class JDBCHelper {
                 try {
                     return sr.getObject(0);
                 } finally {
-                    con.close();
+//                    con.close();
                 }
             } else {
-                con.close();
+//                con.close();
                 return null;
             }
         } catch (Exception e) {

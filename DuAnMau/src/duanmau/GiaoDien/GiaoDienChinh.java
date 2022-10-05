@@ -448,12 +448,16 @@ public class GiaoDienChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_mniluongnguoihocActionPerformed
 
     private void mnidangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidangnhapActionPerformed
-
+        this.dangxuat();
     }//GEN-LAST:event_mnidangnhapActionPerformed
 
     private void mnidangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidangxuatActionPerformed
         // TODO add your handling code here:
-        this.dangxuat();
+        if (Login.user == null) {
+            Dialog.Message(this, "Bạn chưa đăng nhập !");
+        } else {
+            this.dangxuat();
+        }
     }//GEN-LAST:event_mnidangxuatActionPerformed
 
     private void mnidoimatkhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidoimatkhauActionPerformed
@@ -505,12 +509,12 @@ public class GiaoDienChinh extends javax.swing.JFrame {
 
     private void mnidiemchuyendeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidiemchuyendeActionPerformed
         // TODO add your handling code here:
-        this.openThongke(3);
+        this.openThongke(2);
     }//GEN-LAST:event_mnidiemchuyendeActionPerformed
 
     private void mnidoanhthuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidoanhthuActionPerformed
         // TODO add your handling code here:
-        this.openThongke(4);
+        this.openThongke(3);
     }//GEN-LAST:event_mnidoanhthuActionPerformed
 
     private void mnihuongdanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnihuongdanActionPerformed

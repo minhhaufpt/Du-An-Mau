@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package duanmau.GiaoDien;
+
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author NguyenMinhHau_PS24488
@@ -15,8 +17,9 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
      */
     public Quanlinguoihoc(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        initComponents();
         setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -34,7 +37,7 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
         danhsach = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblnguoihoc = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        timkiem = new javax.swing.JPanel();
         txttimkiem = new javax.swing.JTextField();
         btntimkiem = new javax.swing.JButton();
         capnhat = new javax.swing.JPanel();
@@ -60,8 +63,8 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         txtsdt = new javax.swing.JTextField();
         txtngaysinh = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdonam = new javax.swing.JRadioButton();
+        rdonu = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lí người học");
@@ -92,7 +95,7 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
             tblnguoihoc.getColumnModel().getColumn(2).setMaxWidth(200);
         }
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "  Tìm kiếm  ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(153, 153, 255))); // NOI18N
+        timkiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "  Tìm kiếm  ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(153, 153, 255))); // NOI18N
 
         txttimkiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txttimkiem.addActionListener(new java.awt.event.ActionListener() {
@@ -103,21 +106,21 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
 
         btntimkiem.setText("Tìm kiếm");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout timkiemLayout = new javax.swing.GroupLayout(timkiem);
+        timkiem.setLayout(timkiemLayout);
+        timkiemLayout.setHorizontalGroup(
+            timkiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(timkiemLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btntimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        timkiemLayout.setVerticalGroup(
+            timkiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(timkiemLayout.createSequentialGroup()
+                .addGroup(timkiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txttimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(btntimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -130,7 +133,7 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
             .addGroup(danhsachLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(danhsachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(timkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -138,7 +141,7 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
             danhsachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, danhsachLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(timkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -213,18 +216,18 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel13.setText("Ngày sinh");
 
-        btggioitinh.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton1.setText("Nam");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        btggioitinh.add(rdonam);
+        rdonam.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdonam.setText("Nam");
+        rdonam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rdonamActionPerformed(evt);
             }
         });
 
-        btggioitinh.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton2.setText("Nữ");
+        btggioitinh.add(rdonu);
+        rdonu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdonu.setText("Nữ");
 
         javax.swing.GroupLayout capnhatLayout = new javax.swing.GroupLayout(capnhat);
         capnhat.setLayout(capnhatLayout);
@@ -267,9 +270,9 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(capnhatLayout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(rdonam)
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2)
+                                .addComponent(rdonu)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txtngaysinh)
                             .addComponent(txtsdt)))
@@ -284,8 +287,8 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
                 .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2))
+                        .addComponent(rdonam)
+                        .addComponent(rdonu))
                     .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(txtmanh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -374,9 +377,9 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txttimkiemActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rdonamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdonamActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rdonamActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,13 +444,13 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JRadioButton rdonam;
+    private javax.swing.JRadioButton rdonu;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JTable tblnguoihoc;
+    private javax.swing.JPanel timkiem;
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextArea txtghichu;
     private javax.swing.JTextField txthovaten;
