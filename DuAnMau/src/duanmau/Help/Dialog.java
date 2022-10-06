@@ -19,7 +19,7 @@ public class Dialog {
     }
 
     public static boolean Confirm(Component parent, String mess) {
-        int result = JOptionPane.showConfirmDialog(parent, mess, "Hệ thống quản lí đào tạo", JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(parent, mess, "Hệ thống quản lí đào tạo", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         return result == JOptionPane.YES_OPTION;
     }
 

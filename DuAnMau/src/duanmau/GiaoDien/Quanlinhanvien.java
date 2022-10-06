@@ -6,6 +6,7 @@ package duanmau.GiaoDien;
 
 import duanmau.DAO.NhanVienDAO;
 import duanmau.Help.Dialog;
+import duanmau.Help.Login;
 import duanmau.entity.NhanVien;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -26,13 +27,14 @@ public class Quanlinhanvien extends javax.swing.JDialog {
     public Quanlinhanvien(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
     }
 
     void init() {
         setLocationRelativeTo(null);
         this.fillTable();
         this.row = -1;
-
+        this.updateStatus();
     }
 
     /**
@@ -87,6 +89,20 @@ public class Quanlinhanvien extends javax.swing.JDialog {
                 "Họ và tên", "Mã nhân viên", "Mật khẩu", "Vai trò"
             }
         ));
+        tblnhanvien.setFocusable(false);
+        tblnhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblnhanvienMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblnhanvienMouseReleased(evt);
+            }
+        });
+        tblnhanvien.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                tblnhanvienComponentHidden(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblnhanvien);
         if (tblnhanvien.getColumnModel().getColumnCount() > 0) {
             tblnhanvien.getColumnModel().getColumn(3).setMinWidth(150);
@@ -128,7 +144,18 @@ public class Quanlinhanvien extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Xác nhận mật khẩu");
 
+        txthovaten.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txthovatenActionPerformed(evt);
+            }
+        });
+
         btnthem.setText("Thêm");
+        btnthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemActionPerformed(evt);
+            }
+        });
 
         btnleftend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/leftend.png"))); // NOI18N
         btnleftend.setEnabled(false);
@@ -148,6 +175,11 @@ public class Quanlinhanvien extends javax.swing.JDialog {
 
         btnrightend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/rightend.png"))); // NOI18N
         btnrightend.setEnabled(false);
+        btnrightend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrightendActionPerformed(evt);
+            }
+        });
 
         btnright.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/right.png"))); // NOI18N
         btnright.setEnabled(false);
@@ -166,9 +198,19 @@ public class Quanlinhanvien extends javax.swing.JDialog {
         });
 
         btnmoi.setText("Mới");
+        btnmoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmoiActionPerformed(evt);
+            }
+        });
 
         btnxoa.setText("Xóa");
         btnxoa.setEnabled(false);
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
 
         vaitro.add(rdonhanvien);
         rdonhanvien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -293,23 +335,74 @@ public class Quanlinhanvien extends javax.swing.JDialog {
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
+        this.Update();
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnleftendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftendActionPerformed
         // TODO add your handling code here:
+        this.leftend();
     }//GEN-LAST:event_btnleftendActionPerformed
 
     private void btnleftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftActionPerformed
         // TODO add your handling code here:
+        this.left();
     }//GEN-LAST:event_btnleftActionPerformed
 
     private void btnrightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightActionPerformed
         // TODO add your handling code here:
+        this.right();
     }//GEN-LAST:event_btnrightActionPerformed
 
     private void rdonhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdonhanvienActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdonhanvienActionPerformed
+
+    private void tblnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnhanvienMouseClicked
+        // TODO add your handling code here:
+//        if (evt.getClickCount() == 2) {
+//            this.row = tblnhanvien.getSelectedRow();
+//            Dialog.Message(this, String.valueOf(evt.getClickCount()));
+//            this.edit();
+//        }
+
+    }//GEN-LAST:event_tblnhanvienMouseClicked
+
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        // TODO add your handling code here:
+        this.Insert();
+    }//GEN-LAST:event_btnthemActionPerformed
+
+    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
+        // TODO add your handling code here:
+        this.Delete();
+    }//GEN-LAST:event_btnxoaActionPerformed
+
+    private void btnmoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmoiActionPerformed
+        // TODO add your handling code here:
+        clearForm();
+    }//GEN-LAST:event_btnmoiActionPerformed
+
+    private void btnrightendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightendActionPerformed
+        // TODO add your handling code here:
+        this.rightend();
+    }//GEN-LAST:event_btnrightendActionPerformed
+
+    private void tblnhanvienComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblnhanvienComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblnhanvienComponentHidden
+
+    private void tblnhanvienMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnhanvienMouseReleased
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.row = tblnhanvien.getSelectedRow();
+//            Dialog.Message(this, String.valueOf(evt.getClickCount()));
+            this.edit();
+        }
+    }//GEN-LAST:event_tblnhanvienMouseReleased
+
+    private void txthovatenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txthovatenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txthovatenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,14 +476,16 @@ public class Quanlinhanvien extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     void fillTable() {
+
         DefaultTableModel model = (DefaultTableModel) tblnhanvien.getModel();
         model.setRowCount(0);
         try {
             List<NhanVien> lst = dao.SelectAll();
             for (NhanVien nv : lst) {
-                Object[] row = {nv.getMaNV(), nv.getPasswords(), nv.getFullname(), nv.isRoles() ? "Trưởng phòng" : "Nhân viên"};
+                Object[] row = {nv.getFullname(), nv.getMaNV(), nv.getPasswords(), nv.isRoles() ? "Trưởng phòng" : "Nhân viên"};
                 model.addRow(row);
             }
+            tblnhanvien.setDefaultEditor(Object.class, null);
         } catch (Exception e) {
             Dialog.Message(this, "Không thể truy vấn dữ liệu !");
         }
@@ -407,16 +502,17 @@ public class Quanlinhanvien extends javax.swing.JDialog {
 
     void clearForm() {
         NhanVien nv = new NhanVien();
+        this.row = -1;
         this.setForm(nv);
-
+        this.updateStatus();
     }
 
     void edit() {
-        String manv = (String) tblnhanvien.getValueAt(this.row, 0);
+        String manv = (String) tblnhanvien.getValueAt(this.row, 1);
         NhanVien nv = dao.SelectID(manv);
         this.setForm(nv);
         tab.setSelectedIndex(1);
-
+        this.updateStatus();
     }
 
     NhanVien getForm() {
@@ -426,5 +522,101 @@ public class Quanlinhanvien extends javax.swing.JDialog {
         nv.setPasswords(txtmatkhau.getText());
         nv.setRoles(rdotruongphong.isSelected());
         return nv;
+    }
+
+    void Insert() {
+        NhanVien nv = getForm();
+        String mk2 = txtxacnhan.getText();
+        if (!mk2.equals(nv.getPasswords())) {
+            Dialog.Message(this, "Mật khẩu xác nhận không đúng!");
+        } else {
+            try {
+                dao.Insert(nv);
+                this.fillTable();
+                this.clearForm();
+                Dialog.Message(this, "Thêm mới thành công");
+
+            } catch (Exception e) {
+                Dialog.Message(this, "Thêm mới thất bại");
+            }
+        }
+    }
+
+    void Update() {
+        NhanVien nv = getForm();
+        String mk2 = txtxacnhan.getText();
+        if (!mk2.equals(nv.getPasswords())) {
+            Dialog.Message(this, "Mật khẩu xác nhận không đúng!");
+        } else {
+            try {
+                dao.Update(nv);
+                this.fillTable();
+                Dialog.Message(this, "Cập nhật thành công");
+
+            } catch (Exception e) {
+                Dialog.Message(this, "Cập nhật thất bại");
+            }
+        }
+    }
+
+    void Delete() {
+        if (!Login.isManager()) {
+            Dialog.Message(this, "Bạn không có quyền xóa nhân viên");
+        } else {
+            String manv = txtmanv.getText();
+            if (manv.equals(Login.user.getMaNV())) {
+                Dialog.Message(this, "Bạn không được xóa chính bạn!");
+            } else if (Dialog.Confirm(this, "Bạn thật sự muốn xóa nhân viên này ?")) {
+                try {
+                    dao.Remove(manv);
+                    this.fillTable();
+                    this.clearForm();
+                    Dialog.Message(this, "Xóa thành công");
+
+                } catch (Exception e) {
+                    Dialog.Message(this, "Xảy ra lỗi, xóa thất bại");
+                }
+            }
+        }
+    }
+
+    void rightend() {
+        this.row = 0;
+        this.edit();
+    }
+
+    void leftend() {
+        this.row = tblnhanvien.getRowCount() - 1;
+        this.edit();
+    }
+
+    void right() {
+        if (this.row < tblnhanvien.getRowCount() - 1) {
+            this.row++;
+            this.edit();
+        }
+    }
+
+    void left() {
+        if (this.row > 0) {
+            this.row--;
+            this.edit();
+        }
+    }
+
+    void updateStatus() {
+        boolean edit = (this.row >= 0);
+        boolean rightend = (this.row == 0);
+        boolean leftend = (this.row == tblnhanvien.getRowCount() - 1);
+        //trang thai from
+        txtmanv.setEditable(!edit);
+        btnthem.setEnabled(!edit);
+        btnsua.setEnabled(edit);
+        btnxoa.setEnabled(edit);
+        //nut chuyen tiep
+        btnleft.setEnabled(edit && !leftend);
+        btnleftend.setEnabled(edit && !leftend);
+        btnright.setEnabled(edit && !rightend);
+        btnrightend.setEnabled(edit && !rightend);
     }
 }

@@ -4,7 +4,16 @@
  */
 package duanmau.GiaoDien;
 
+import duanmau.DAO.ChuyenDeDAO;
+import duanmau.Help.Dialog;
+import duanmau.Help.XImage;
+import duanmau.entity.ChuyenDe;
+import java.awt.Image;
+import java.io.File;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,10 +24,20 @@ public class Quanlichuyende extends javax.swing.JDialog {
     /**
      * Creates new form Quanlichuyende
      */
+    public int row;
+    private ChuyenDeDAO dao = new ChuyenDeDAO();
+
     public Quanlichuyende(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
+    }
+
+    void init() {
         setLocationRelativeTo(null);
+        this.fillTable();
+        this.row = -1;
+        this.updateStatus();
     }
 
     /**
@@ -30,6 +49,7 @@ public class Quanlichuyende extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        filechooes = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         tab = new javax.swing.JTabbedPane();
         danhsach = new javax.swing.JPanel();
@@ -74,6 +94,11 @@ public class Quanlichuyende extends javax.swing.JDialog {
                 "Mã chuyên đề", "Tên chuyên đề", "Thời lượng", "Hình"
             }
         ));
+        tblchuyende.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblchuyendeMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblchuyende);
         if (tblchuyende.getColumnModel().getColumnCount() > 0) {
             tblchuyende.getColumnModel().getColumn(0).setMinWidth(150);
@@ -109,6 +134,11 @@ public class Quanlichuyende extends javax.swing.JDialog {
         jLabel2.setText("Hình Logo");
 
         lbanh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lbanh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbanhMouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Mô tả chuyên đề");
@@ -130,6 +160,11 @@ public class Quanlichuyende extends javax.swing.JDialog {
         jScrollPane1.setViewportView(txtmota);
 
         btnthem.setText("Thêm");
+        btnthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemActionPerformed(evt);
+            }
+        });
 
         btnleftend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/leftend.png"))); // NOI18N
         btnleftend.setEnabled(false);
@@ -149,6 +184,11 @@ public class Quanlichuyende extends javax.swing.JDialog {
 
         btnrightend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/rightend.png"))); // NOI18N
         btnrightend.setEnabled(false);
+        btnrightend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrightendActionPerformed(evt);
+            }
+        });
 
         btnright.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/right.png"))); // NOI18N
         btnright.setEnabled(false);
@@ -167,9 +207,19 @@ public class Quanlichuyende extends javax.swing.JDialog {
         });
 
         btnmoi.setText("Mới");
+        btnmoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmoiActionPerformed(evt);
+            }
+        });
 
         btnxoa.setText("Xóa");
         btnxoa.setEnabled(false);
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout capnhatLayout = new javax.swing.GroupLayout(capnhat);
         capnhat.setLayout(capnhatLayout);
@@ -289,24 +339,62 @@ public class Quanlichuyende extends javax.swing.JDialog {
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
+        Update();
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnleftendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftendActionPerformed
         // TODO add your handling code here:
+        leftend();
     }//GEN-LAST:event_btnleftendActionPerformed
 
     private void btnleftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftActionPerformed
         // TODO add your handling code here:
+        left();
     }//GEN-LAST:event_btnleftActionPerformed
 
     private void btnrightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightActionPerformed
         // TODO add your handling code here:
+        right();
     }//GEN-LAST:event_btnrightActionPerformed
+
+    private void lbanhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbanhMouseClicked
+        // TODO add your handling code here:
+        getImage();
+    }//GEN-LAST:event_lbanhMouseClicked
+
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        // TODO add your handling code here:
+        Insert();
+    }//GEN-LAST:event_btnthemActionPerformed
+
+    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
+        // TODO add your handling code here:
+        Delete();
+    }//GEN-LAST:event_btnxoaActionPerformed
+
+    private void tblchuyendeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblchuyendeMouseReleased
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.row = tblchuyende.getSelectedRow();
+//            Dialog.Message(this, String.valueOf(evt.getClickCount()));
+            this.edit();
+        }
+    }//GEN-LAST:event_tblchuyendeMouseReleased
+
+    private void btnmoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmoiActionPerformed
+        // TODO add your handling code here:
+        clearForm();
+    }//GEN-LAST:event_btnmoiActionPerformed
+
+    private void btnrightendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightendActionPerformed
+        // TODO add your handling code here:
+        rightend();
+    }//GEN-LAST:event_btnrightendActionPerformed
 
     /**
      * @param args the command line arguments
      */
-   public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -356,6 +444,7 @@ public class Quanlichuyende extends javax.swing.JDialog {
     private javax.swing.JButton btnxoa;
     private javax.swing.JPanel capnhat;
     private javax.swing.JPanel danhsach;
+    private javax.swing.JFileChooser filechooes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -374,4 +463,152 @@ public class Quanlichuyende extends javax.swing.JDialog {
     private javax.swing.JTextField txttencd;
     private javax.swing.JTextField txtthoiluong;
     // End of variables declaration//GEN-END:variables
+
+    void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblchuyende.getModel();
+        model.setRowCount(0);
+        try {
+            List<ChuyenDe> lst = dao.SelectAll();
+            for (ChuyenDe cd : lst) {
+                Object[] row = {cd.getMaCD(), cd.getTenCD(), cd.getThoiLuong(), cd.getHinh()};
+                model.addRow(row);
+            }
+            tblchuyende.setDefaultEditor(Object.class, null);
+        } catch (Exception e) {
+            Dialog.Message(this, "Không thể truy vấn dữ liệu !");
+        }
+    }
+
+    void setForm(ChuyenDe cd) {
+        txtmacd.setText(cd.getMaCD());
+        txttencd.setText(cd.getTenCD());
+        txtthoiluong.setText(String.valueOf(cd.getThoiLuong()));
+        txthocphi.setText(String.valueOf(cd.getHocPhi()));
+        txtmota.setText(cd.getMoTa());
+        if (cd.getHinh() != null && !cd.getHinh().equals("")) {
+            lbanh.setToolTipText(cd.getHinh());
+            ImageIcon icon = XImage.Read(cd.getHinh());
+            Image icon1 = icon.getImage();
+            lbanh.setIcon(new ImageIcon(icon1.getScaledInstance(150, 200, 0)));
+        }
+    }
+
+    void clearForm() {
+        ChuyenDe cd = new ChuyenDe();
+        this.setForm(cd);
+        this.row = -1;
+        this.updateStatus();
+    }
+
+    void edit() {
+        String macd = (String) tblchuyende.getValueAt(this.row, 0);
+        ChuyenDe cd = dao.SelectID(macd);
+        this.setForm(cd);
+        tab.setSelectedIndex(1);
+        this.updateStatus();
+    }
+
+    ChuyenDe getForm() {
+        ChuyenDe cd = new ChuyenDe();
+        cd.setMaCD(txtmacd.getText());
+        cd.setTenCD(txttencd.getText());
+        cd.setThoiLuong(Integer.parseInt(txtthoiluong.getText()));
+        cd.setHocPhi(Double.parseDouble(txthocphi.getText()));
+        cd.setMoTa(txtmota.getText());
+        cd.setHinh(lbanh.getToolTipText());
+        return cd;
+    }
+
+    void getImage() {
+        if (filechooes.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = filechooes.getSelectedFile();
+            XImage.Save(file);
+            ImageIcon icon = XImage.Read(file.getName());
+            Image icon1 = icon.getImage();
+            lbanh.setIcon(new ImageIcon(icon1.getScaledInstance(150, 200, 0)));
+            lbanh.setToolTipText(file.getName());
+        }
+    }
+
+    void Insert() {
+        ChuyenDe cd = getForm();
+//         Dialog.Message(this,String.valueOf(cd.getMaCD())+" - "+String.valueOf(cd.getTenCD())+" - "+String.valueOf(cd.getHocPhi())+" - "+String.valueOf(cd.getThoiLuong())+" - "+String.valueOf(cd.getHinh())+" - "+String.valueOf(cd.getMoTa()));
+        try {
+            dao.Insert(cd);
+            this.fillTable();
+            this.clearForm();
+            Dialog.Message(this, "Thêm mới thành công");
+        } catch (Exception e) {
+            Dialog.Message(this, "Đã tồn tại mã chuyên đề tương tự, không thể thêm mới \nMã lỗi : " + e);
+        }
+
+    }
+
+    void Update() {
+        ChuyenDe cd = getForm();
+        try {
+            dao.Update(cd);
+            this.fillTable();
+            Dialog.Message(this, "Cập nhật thành công");
+
+        } catch (Exception e) {
+            Dialog.Message(this, "Cập nhật thất bại");
+        }
+    }
+
+    void Delete() {
+        String macd = txtmacd.getText();
+        if (Dialog.Confirm(this, "Bạn thật sự muốn xóa chuyên đề này ?")) {
+            try {
+                dao.Remove(macd);
+                this.fillTable();
+                this.clearForm();
+                Dialog.Message(this, "Xóa thành công");
+            } catch (Exception e) {
+                Dialog.Message(this, "Xảy ra lỗi, xóa thất bại");
+            }
+        }
+
+    }
+
+    void rightend() {
+        this.row = 0;
+        this.edit();
+    }
+
+    void leftend() {
+        this.row = tblchuyende.getRowCount() - 1;
+        this.edit();
+    }
+
+    void right() {
+        if (this.row < tblchuyende.getRowCount() - 1) {
+            this.row++;
+            this.edit();
+        }
+    }
+
+    void left() {
+        if (this.row > 0) {
+            this.row--;
+            this.edit();
+        }
+    }
+
+    void updateStatus() {
+        boolean edit = (this.row >= 0);
+        boolean rightend = (this.row == 0);
+        boolean leftend = (this.row == tblchuyende.getRowCount() - 1);
+        //trang thai from
+        txtmacd.setEditable(!edit);
+        btnthem.setEnabled(!edit);
+        btnsua.setEnabled(edit);
+        btnxoa.setEnabled(edit);
+        //nut chuyen tiep
+        btnleft.setEnabled(edit && !leftend);
+        btnleftend.setEnabled(edit && !leftend);
+        btnright.setEnabled(edit && !rightend);
+        btnrightend.setEnabled(edit && !rightend);
+    }
+
 }

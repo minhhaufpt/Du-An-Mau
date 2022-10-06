@@ -9,8 +9,6 @@ import duanmau.entity.NhanVien;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -18,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class NhanVienDAO extends MainDAO<NhanVien, String> {
 
-    String insert_sql = "insert into NhanVien(MaNV,Passwords,Fullname,Roles) Value(?,?,?,?)";
+    String insert_sql = "insert into NhanVien(MaNV,Passwords,Fullname,Roles) Values(?,?,?,?)";
     String update_sql = "Update NhanVien set Passwords = ? , Fullname = ? ,Roles = ? where MaNV = ? ";
     String remove_sql = "Delete from NhanVien where MaNV = ?";
     String select_sql = "Select * from NhanVien";
@@ -26,13 +24,13 @@ public class NhanVienDAO extends MainDAO<NhanVien, String> {
 
     @Override
     public void Update(NhanVien entity) {
-        JDBCHelper.Update(update_sql, entity.getFullname(), entity.getPasswords(), entity.isRoles(), entity.getMaNV());
+        JDBCHelper.Update(update_sql, entity.getPasswords(), entity.getFullname(), entity.isRoles(), entity.getMaNV());
     }
 
     @Override
     public void Insert(NhanVien entity) {
 
-        JDBCHelper.Update(insert_sql, entity.getMaNV(), entity.getFullname(), entity.getPasswords(), entity.isRoles());
+        JDBCHelper.Update(insert_sql, entity.getMaNV(), entity.getPasswords(), entity.getFullname(), entity.isRoles());
     }
 
     @Override
