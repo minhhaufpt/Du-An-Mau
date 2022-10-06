@@ -3,7 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package duanmau.GiaoDien;
+
+import duanmau.DAO.NhanVienDAO;
+import duanmau.Help.Dialog;
+import duanmau.entity.NhanVien;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author NguyenMinhHau_PS24488
@@ -13,10 +20,19 @@ public class Quanlinhanvien extends javax.swing.JDialog {
     /**
      * Creates new form Quanlichuyende
      */
+    private NhanVienDAO dao = new NhanVienDAO();
+    public int row;
+
     public Quanlinhanvien(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    void init() {
         setLocationRelativeTo(null);
+        this.fillTable();
+        this.row = -1;
+
     }
 
     /**
@@ -298,7 +314,7 @@ public class Quanlinhanvien extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-     public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -365,4 +381,50 @@ public class Quanlinhanvien extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtxacnhan;
     private javax.swing.ButtonGroup vaitro;
     // End of variables declaration//GEN-END:variables
+
+    void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblnhanvien.getModel();
+        model.setRowCount(0);
+        try {
+            List<NhanVien> lst = dao.SelectAll();
+            for (NhanVien nv : lst) {
+                Object[] row = {nv.getMaNV(), nv.getPasswords(), nv.getFullname(), nv.isRoles() ? "Trưởng phòng" : "Nhân viên"};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            Dialog.Message(this, "Không thể truy vấn dữ liệu !");
+        }
+    }
+
+    void setForm(NhanVien nv) {
+        txtmanv.setText(nv.getMaNV());
+        txthovaten.setText(nv.getFullname());
+        txtmatkhau.setText(nv.getPasswords());
+        txtxacnhan.setText(nv.getPasswords());
+        rdotruongphong.setSelected(nv.isRoles());
+        rdonhanvien.setSelected(!nv.isRoles());
+    }
+
+    void clearForm() {
+        NhanVien nv = new NhanVien();
+        this.setForm(nv);
+
+    }
+
+    void edit() {
+        String manv = (String) tblnhanvien.getValueAt(this.row, 0);
+        NhanVien nv = dao.SelectID(manv);
+        this.setForm(nv);
+        tab.setSelectedIndex(1);
+
+    }
+
+    NhanVien getForm() {
+        NhanVien nv = new NhanVien();
+        nv.setMaNV(txtmanv.getText());
+        nv.setFullname(txthovaten.getText());
+        nv.setPasswords(txtmatkhau.getText());
+        nv.setRoles(rdotruongphong.isSelected());
+        return nv;
+    }
 }
