@@ -115,16 +115,16 @@ public class Quanlinhanvien extends javax.swing.JDialog {
         danhsachLayout.setHorizontalGroup(
             danhsachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(danhsachLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(25, 25, 25))
         );
         danhsachLayout.setVerticalGroup(
             danhsachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(danhsachLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGap(25, 25, 25))
         );
 
         tab.addTab("Danh sách", danhsach);
@@ -314,20 +314,20 @@ public class Quanlinhanvien extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -525,36 +525,38 @@ public class Quanlinhanvien extends javax.swing.JDialog {
     }
 
     void Insert() {
-        NhanVien nv = getForm();
-        String mk2 = txtxacnhan.getText();
-        if (!mk2.equals(nv.getPasswords())) {
-            Dialog.Message(this, "Mật khẩu xác nhận không đúng!");
-        } else {
-            try {
-                dao.Insert(nv);
-                this.fillTable();
-                this.clearForm();
-                Dialog.Message(this, "Thêm mới thành công");
-
-            } catch (Exception e) {
-                Dialog.Message(this, "Thêm mới thất bại");
+        if (checkNull()) {
+            NhanVien nv = getForm();
+            String mk2 = txtxacnhan.getText();
+            if (!mk2.equals(nv.getPasswords())) {
+                Dialog.Message(this, "Mật khẩu xác nhận không đúng!");
+            } else {
+                try {
+                    dao.Insert(nv);
+                    this.fillTable();
+                    this.clearForm();
+                    Dialog.Message(this, "Thêm mới thành công");
+                } catch (Exception e) {
+                    Dialog.Message(this, "Thêm mới thất bại");
+                }
             }
         }
     }
 
     void Update() {
-        NhanVien nv = getForm();
-        String mk2 = txtxacnhan.getText();
-        if (!mk2.equals(nv.getPasswords())) {
-            Dialog.Message(this, "Mật khẩu xác nhận không đúng!");
-        } else {
-            try {
-                dao.Update(nv);
-                this.fillTable();
-                Dialog.Message(this, "Cập nhật thành công");
-
-            } catch (Exception e) {
-                Dialog.Message(this, "Cập nhật thất bại");
+        if (checkNull()) {
+            NhanVien nv = getForm();
+            String mk2 = txtxacnhan.getText();
+            if (!mk2.equals(nv.getPasswords())) {
+                Dialog.Message(this, "Mật khẩu xác nhận không đúng!");
+            } else {
+                try {
+                    dao.Update(nv);
+                    this.fillTable();
+                    Dialog.Message(this, "Cập nhật thành công");
+                } catch (Exception e) {
+                    Dialog.Message(this, "Cập nhật thất bại");
+                }
             }
         }
     }
@@ -572,7 +574,6 @@ public class Quanlinhanvien extends javax.swing.JDialog {
                     this.fillTable();
                     this.clearForm();
                     Dialog.Message(this, "Xóa thành công");
-
                 } catch (Exception e) {
                     Dialog.Message(this, "Xảy ra lỗi, xóa thất bại");
                 }
@@ -606,8 +607,8 @@ public class Quanlinhanvien extends javax.swing.JDialog {
 
     void updateStatus() {
         boolean edit = (this.row >= 0);
-        boolean rightend = (this.row == 0);
-        boolean leftend = (this.row == tblnhanvien.getRowCount() - 1);
+        boolean  leftend = (this.row == 0);
+        boolean rightend  = (this.row == tblnhanvien.getRowCount() - 1);
         //trang thai from
         txtmanv.setEditable(!edit);
         btnthem.setEnabled(!edit);
@@ -618,5 +619,26 @@ public class Quanlinhanvien extends javax.swing.JDialog {
         btnleftend.setEnabled(edit && !leftend);
         btnright.setEnabled(edit && !rightend);
         btnrightend.setEnabled(edit && !rightend);
+    }
+
+    boolean checkNull() {
+        if (txtmanv.getText().equals("")) {
+            txtmanv.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txthovaten.getText().equals("")) {
+            txthovaten.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txtmatkhau.getText().equals("")) {
+            txtmatkhau.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txtxacnhan.getText().equals("")) {
+            txtxacnhan.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        }
+        return true;
     }
 }

@@ -3,7 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package duanmau.GiaoDien;
+
+import duanmau.DAO.ChuyenDeDAO;
+import duanmau.DAO.HocVienDAO;
+import duanmau.DAO.KhoaHocDAO;
+import duanmau.DAO.NguoiHocDAO;
+import duanmau.Help.Dialog;
+import duanmau.Help.Login;
+import duanmau.entity.ChuyenDe;
+import duanmau.entity.HocVien;
+import duanmau.entity.KhoaHoc;
+import duanmau.entity.NguoiHoc;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author NguyenMinhHau_PS24488
@@ -13,11 +28,24 @@ public class Quanlihocvien extends javax.swing.JDialog {
     /**
      * Creates new form Quanlichuyende
      */
+    ChuyenDeDAO cddao = new ChuyenDeDAO();
+    KhoaHocDAO khdao = new KhoaHocDAO();
+    HocVienDAO hvdao = new HocVienDAO();
+    NguoiHocDAO nhdao = new NguoiHocDAO();
+    public int rowhv = -1;
+    public int rownh = -1;
+
     public Quanlihocvien(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
+    }
+
+    void init() {
         setLocationRelativeTo(null);
-        
+        this.fillComboxCD();
+        this.updateStatus();
+
     }
 
     /**
@@ -64,6 +92,11 @@ public class Quanlihocvien extends javax.swing.JDialog {
                 "STT", "Mã người học", "Mã học viên", "Họ và tên ", "Điểm"
             }
         ));
+        tblhocvien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblhocvienMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblhocvien);
         if (tblhocvien.getColumnModel().getColumnCount() > 0) {
             tblhocvien.getColumnModel().getColumn(0).setMinWidth(50);
@@ -81,8 +114,18 @@ public class Quanlihocvien extends javax.swing.JDialog {
         }
 
         btnxoa.setText("Xóa khỏi khóa học");
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
 
         btncapnhat.setText("Cập nhật điểm");
+        btncapnhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncapnhatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout hocvienLayout = new javax.swing.GroupLayout(hocvien);
         hocvien.setLayout(hocvienLayout);
@@ -152,6 +195,11 @@ public class Quanlihocvien extends javax.swing.JDialog {
                 "Mã người học", "Họ và tên", "Giới tính", "Ngày sinh", "Số điện thoại", "Email"
             }
         ));
+        tblnguoihoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblnguoihocMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblnguoihoc);
 
         btnthem.setText("Thêm vào khóa học");
@@ -279,10 +327,12 @@ public class Quanlihocvien extends javax.swing.JDialog {
 
     private void cbchuyendeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbchuyendeActionPerformed
         // TODO add your handling code here:
+        fillComboxKH();
     }//GEN-LAST:event_cbchuyendeActionPerformed
 
     private void cbkhoahocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkhoahocActionPerformed
         // TODO add your handling code here:
+        fillTableHV();
     }//GEN-LAST:event_cbkhoahocActionPerformed
 
     private void txttimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimkiemActionPerformed
@@ -291,7 +341,30 @@ public class Quanlihocvien extends javax.swing.JDialog {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
+        this.addHocVien();
     }//GEN-LAST:event_btnthemActionPerformed
+
+    private void tblhocvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhocvienMouseClicked
+        // TODO add your handling code here:   
+        this.rowhv = tblhocvien.getSelectedRow();
+        this.updateStatus();
+    }//GEN-LAST:event_tblhocvienMouseClicked
+
+    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
+        // TODO add your handling code here:
+        this.removeHocVien();
+    }//GEN-LAST:event_btnxoaActionPerformed
+
+    private void btncapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapnhatActionPerformed
+        // TODO add your handling code here:
+        this.updateGrade();
+    }//GEN-LAST:event_btncapnhatActionPerformed
+
+    private void tblnguoihocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnguoihocMouseClicked
+        // TODO add your handling code here:
+        this.rownh = tblnguoihoc.getSelectedRow();
+        this.updateStatus();
+    }//GEN-LAST:event_tblnguoihocMouseClicked
 
     /**
      * @param args the command line arguments
@@ -356,4 +429,107 @@ public class Quanlihocvien extends javax.swing.JDialog {
     private javax.swing.JTextField txttimkiem;
     // End of variables declaration//GEN-END:variables
 
+    void fillComboxCD() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbchuyende.getModel();
+        model.removeAllElements();
+        List<ChuyenDe> lst = cddao.SelectAll();
+        for (ChuyenDe cd : lst) {
+            model.addElement(cd);
+        }
+        this.fillComboxKH();
+    }
+
+    void fillComboxKH() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbkhoahoc.getModel();
+        model.removeAllElements();
+        ChuyenDe chuyende = (ChuyenDe) cbchuyende.getSelectedItem();
+        if (chuyende != null) {
+            List<KhoaHoc> lst = khdao.selectByCD(chuyende.getMaCD());
+            for (KhoaHoc kh : lst) {
+                model.addElement(kh);
+            }
+            this.fillTableHV();
+        }
+    }
+
+    void fillTableHV() {
+        DefaultTableModel model = (DefaultTableModel) tblhocvien.getModel();
+        model.setRowCount(0);
+        KhoaHoc kh = (KhoaHoc) cbkhoahoc.getSelectedItem();
+        if (kh != null) {
+            List<HocVien> lst = hvdao.selectByKhoaHoc(kh.getMaKH());
+            for (int i = 0; i < lst.size(); i++) {
+                HocVien hv = lst.get(i);
+                String hoten = nhdao.SelectID(hv.getMaNH()).getHoten();
+                model.addRow(new Object[]{i + 1, hv.getMaNH(), hv.getMaHV(), hoten, hv.getGrade()});
+            }
+            this.fillTableNH();
+        }
+    }
+
+    void fillTableNH() {
+        DefaultTableModel model = (DefaultTableModel) tblnguoihoc.getModel();
+        model.setRowCount(0);
+        KhoaHoc kh = (KhoaHoc) cbkhoahoc.getSelectedItem();
+        String key = txttimkiem.getText();
+        List<NguoiHoc> lst = nhdao.selectNotinKhoahoc(kh.getMaKH(), key);
+        for (NguoiHoc nh : lst) {
+            model.addRow(new Object[]{
+                nh.getMaNH(), nh.getHoten(), nh.isGioiTinh() ? "Nam" : "Nữ",
+                nh.getNgaySinh(), nh.getDienThoai(), nh.getEmail()
+            });
+        }
+    }
+
+    void addHocVien() {
+        KhoaHoc kh = (KhoaHoc) cbkhoahoc.getSelectedItem();
+        for (int row : tblnguoihoc.getSelectedRows()) {
+            HocVien hv = new HocVien();
+            hv.setMaKH(kh.getMaKH());
+            hv.setGrade(0);
+            hv.setMaNH(String.valueOf(tblnguoihoc.getValueAt(row, 0)));
+            hvdao.Insert(hv);
+        }
+        this.fillTableHV();
+        this.tab.setSelectedIndex(0);
+    }
+
+    void removeHocVien() {
+        if (!Login.isManager()) {
+            Dialog.Message(this, "Bạn không có quyền xóa học viên!");
+        } else {
+            if (Dialog.Confirm(this, "Bạn có muốn xóa các học viên được chọn ?")) {
+                for (int row : tblhocvien.getSelectedRows()) {
+                    String mahv = String.valueOf(tblhocvien.getValueAt(row, 0));
+                    hvdao.Remove(mahv);
+                }
+                this.fillTableHV();
+            }
+        }
+    }
+
+    void updateGrade() {
+        for (int i = 0; i < tblhocvien.getRowCount(); i++) {
+            String mahv = String.valueOf(tblhocvien.getValueAt(i, 2));
+            HocVien hv = hvdao.SelectID(mahv);
+            hv.setGrade(Float.parseFloat(String.valueOf(tblhocvien.getValueAt(i, 4))));
+            hvdao.Update(hv);
+        }
+        Dialog.Message(this, "Cập nhật điểm thành công");
+    }
+
+    void updateStatus() {
+        if (this.rowhv <= -1) {
+            btnxoa.setEnabled(false);
+            btncapnhat.setEnabled(false);
+        }else {
+            btnxoa.setEnabled(true);
+            btncapnhat.setEnabled(true);
+        }
+        if (this.rownh <= -1) {
+            btnthem.setEnabled(false);
+        } else {
+            btnthem.setEnabled(true);
+        }
+    }
 }

@@ -76,5 +76,15 @@ public class ChuyenDe {
     public void setMoTa(String MoTa) {
         this.MoTa = MoTa;
     }
-
+    
+    @Override
+    public String toString() {
+        return this.TenCD;
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        ChuyenDe other = (ChuyenDe) obj;
+        return other.getMaCD().equals(this.getMaCD());
+    }
 }

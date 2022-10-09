@@ -4,7 +4,19 @@
  */
 package duanmau.GiaoDien;
 
+import duanmau.DAO.NguoiHocDAO;
+import duanmau.Help.Dialog;
+import duanmau.Help.Login;
+import duanmau.Help.XDate;
+import duanmau.Help.XImage;
+import duanmau.entity.NguoiHoc;
+import java.awt.Image;
+import java.io.File;
+import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,11 +27,20 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
     /**
      * Creates new form Quanlichuyende
      */
+    NguoiHocDAO dao = new NguoiHocDAO();
+    public int row;
+
     public Quanlinguoihoc(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
+        init();
+    }
 
+    void init() {
+        setLocationRelativeTo(null);
+        this.fillTable();
+        this.row = -1;
+        this.updateStatus();
     }
 
     /**
@@ -82,6 +103,11 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
                 "Mã người học", "Họ và tên", "Giới tính", "Ngày sinh", "Số điện thoại", "Email", "Tạo bởi", "Ngày tạo"
             }
         ));
+        tblnguoihoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblnguoihocMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblnguoihoc);
         if (tblnguoihoc.getColumnModel().getColumnCount() > 0) {
             tblnguoihoc.getColumnModel().getColumn(0).setMinWidth(150);
@@ -105,6 +131,11 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
         });
 
         btntimkiem.setText("Tìm kiếm");
+        btntimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimkiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout timkiemLayout = new javax.swing.GroupLayout(timkiem);
         timkiem.setLayout(timkiemLayout);
@@ -157,6 +188,11 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
         jScrollPane1.setViewportView(txtghichu);
 
         btnthem.setText("Thêm");
+        btnthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemActionPerformed(evt);
+            }
+        });
 
         btnleftend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/leftend.png"))); // NOI18N
         btnleftend.setEnabled(false);
@@ -176,6 +212,11 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
 
         btnrightend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/rightend.png"))); // NOI18N
         btnrightend.setEnabled(false);
+        btnrightend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrightendActionPerformed(evt);
+            }
+        });
 
         btnright.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/right.png"))); // NOI18N
         btnright.setEnabled(false);
@@ -194,9 +235,19 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
         });
 
         btnmoi.setText("Mới");
+        btnmoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmoiActionPerformed(evt);
+            }
+        });
 
         btnxoa.setText("Xóa");
         btnxoa.setEnabled(false);
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("Mã người học");
@@ -359,18 +410,22 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
+        Update();
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnleftendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftendActionPerformed
         // TODO add your handling code here:
+        leftend();
     }//GEN-LAST:event_btnleftendActionPerformed
 
     private void btnleftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftActionPerformed
         // TODO add your handling code here:
+        left();
     }//GEN-LAST:event_btnleftActionPerformed
 
     private void btnrightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightActionPerformed
         // TODO add your handling code here:
+        right();
     }//GEN-LAST:event_btnrightActionPerformed
 
     private void txttimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimkiemActionPerformed
@@ -380,6 +435,40 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
     private void rdonamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdonamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdonamActionPerformed
+
+    private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed
+        // TODO add your handling code here:
+        timkiem();
+    }//GEN-LAST:event_btntimkiemActionPerformed
+
+    private void tblnguoihocMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnguoihocMouseReleased
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.row = tblnguoihoc.getSelectedRow();
+//            Dialog.Message(this, String.valueOf(evt.getClickCount()));
+            this.edit();
+        }
+    }//GEN-LAST:event_tblnguoihocMouseReleased
+
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        // TODO add your handling code here:
+        Insert();
+    }//GEN-LAST:event_btnthemActionPerformed
+
+    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
+        // TODO add your handling code here:
+        Delete();
+    }//GEN-LAST:event_btnxoaActionPerformed
+
+    private void btnmoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmoiActionPerformed
+        // TODO add your handling code here:
+        clearForm();
+    }//GEN-LAST:event_btnmoiActionPerformed
+
+    private void btnrightendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightendActionPerformed
+        // TODO add your handling code here:
+        rightend();
+    }//GEN-LAST:event_btnrightendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -460,4 +549,202 @@ public class Quanlinguoihoc extends javax.swing.JDialog {
     private javax.swing.JTextField txttimkiem;
     // End of variables declaration//GEN-END:variables
 
+    void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblnguoihoc.getModel();
+        model.setRowCount(0);
+        try {
+            String tk = txttimkiem.getText().trim();
+            List<NguoiHoc> lst = null;
+            if (!tk.equals("")) {
+                lst = dao.SelectByKeyword(tk);
+            } else {
+                lst = dao.SelectAll();
+            }
+            for (NguoiHoc entity : lst) {
+                Object[] row = {entity.getMaNH(), entity.getHoten(), entity.isGioiTinh() == true ? "Nam" : "Nữ", XDate.toString(entity.getNgaySinh(), "dd-MM-yyyy"), entity.getDienThoai(), entity.getEmail(), entity.getMaNV(), XDate.toString(entity.getNgayDK(), "dd-MM-yyyy")};
+                model.addRow(row);
+            }
+            tblnguoihoc.setDefaultEditor(Object.class, null);
+        } catch (Exception e) {
+            Dialog.Message(this, "Không thể truy vấn dữ liệu !");
+        }
+    }
+
+    void setForm(NguoiHoc entity) {
+        txthovaten.setText(entity.getHoten());
+        txtemail.setText(entity.getEmail());
+        txtmanh.setText(entity.getMaNH());
+        txtngaysinh.setText(XDate.toString(entity.getNgaySinh(), "dd/MM/yyyy"));
+        txtghichu.setText(entity.getGhiChu());
+        txtsdt.setText(entity.getDienThoai());
+        rdonam.setSelected(entity.isGioiTinh());
+        rdonu.setSelected(!entity.isGioiTinh());
+    }
+
+    void clearForm() {
+//        NguoiHoc entity = new NguoiHoc(0);
+//        this.setForm(entity);
+        txthovaten.setText("");
+        txtemail.setText("");
+        txtmanh.setText("");
+        txtngaysinh.setText("");
+        txtghichu.setText("");
+        txtsdt.setText("");
+        rdonam.setSelected(true);
+        this.row = -1;
+        this.updateStatus();
+    }
+
+    void edit() {
+        String manh = (String) tblnguoihoc.getValueAt(this.row, 0);
+        NguoiHoc entity = dao.SelectID(manh);
+        this.setForm(entity);
+        tab.setSelectedIndex(1);
+        this.updateStatus();
+    }
+
+    NguoiHoc getForm() {
+        NguoiHoc entity = new NguoiHoc();
+        entity.setMaNH(txtmanh.getText());
+        entity.setHoten(txthovaten.getText());
+        entity.setDienThoai(txtsdt.getText());
+        entity.setEmail(txtemail.getText());
+        entity.setNgaySinh(XDate.toDate(txtngaysinh.getText(), "dd-MM-yyyy"));
+        entity.setNgayDK(new Date());
+        entity.setMaNV(Login.user.getMaNV());
+        entity.setGioiTinh(rdonam.isSelected());
+        entity.setGhiChu(txtghichu.getText());
+        return entity;
+    }
+
+    void Insert() {
+        if (checkValidate()) {
+            NguoiHoc entity = getForm();
+//         Dialog.Message(this,String.valueOf(cd.getMaCD())+" - "+String.valueOf(cd.getTenCD())+" - "+String.valueOf(cd.getHocPhi())+" - "+String.valueOf(cd.getThoiLuong())+" - "+String.valueOf(cd.getHinh())+" - "+String.valueOf(cd.getMoTa()));
+            try {
+                dao.Insert(entity);
+                this.fillTable();
+                this.clearForm();
+                Dialog.Message(this, "Thêm mới thành công");
+            } catch (Exception e) {
+                Dialog.Message(this, "Đã tồn tại mã chuyên đề tương tự, không thể thêm mới");
+            }
+        }
+    }
+
+    void Update() {
+        if (checkValidate()) {
+            NguoiHoc entity = getForm();
+            try {
+                dao.Update(entity);
+                this.fillTable();
+                Dialog.Message(this, "Cập nhật thành công");
+
+            } catch (Exception e) {
+                Dialog.Message(this, "Cập nhật thất bại");
+            }
+        }
+    }
+
+    void Delete() {
+        String macd = txtmanh.getText();
+        if (Dialog.Confirm(this, "Bạn thật sự muốn xóa người học này ?")) {
+            try {
+                dao.Remove(macd);
+                this.fillTable();
+                this.clearForm();
+                Dialog.Message(this, "Xóa thành công");
+            } catch (Exception e) {
+                Dialog.Message(this, "Xảy ra lỗi, xóa thất bại");
+            }
+        }
+    }
+
+    void rightend() {
+        this.row = 0;
+        this.edit();
+    }
+
+    void leftend() {
+        this.row = tblnguoihoc.getRowCount() - 1;
+        this.edit();
+    }
+
+    void right() {
+        if (this.row < tblnguoihoc.getRowCount() - 1) {
+            this.row++;
+            this.edit();
+        }
+    }
+
+    void left() {
+        if (this.row > 0) {
+            this.row--;
+            this.edit();
+        }
+    }
+
+    void updateStatus() {
+        boolean edit = (this.row >= 0);
+        boolean leftend = (this.row == 0);
+        boolean rightend = (this.row == tblnguoihoc.getRowCount() - 1);
+        //trang thai from
+        txtmanh.setEditable(!edit);
+        btnthem.setEnabled(!edit);
+        btnsua.setEnabled(edit);
+        btnxoa.setEnabled(edit);
+        //nut chuyen tiep
+        btnleft.setEnabled(edit && !leftend);
+        btnleftend.setEnabled(edit && !leftend);
+        btnright.setEnabled(edit && !rightend);
+        btnrightend.setEnabled(edit && !rightend);
+    }
+
+    void timkiem() {
+        this.fillTable();
+        this.row = -1;
+        this.clearForm();
+        this.updateStatus();
+    }
+
+    boolean checkValidate() {
+        if (txtmanh.getText().equals("")) {
+            txtmanh.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txthovaten.getText().equals("")) {
+            txthovaten.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txtngaysinh.getText().equals("")) {
+            txtngaysinh.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txtemail.getText().equals("")) {
+            txtemail.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txtsdt.getText().equals("")) {
+            txtsdt.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        }
+        String chkemail = "\\w+@\\w{3,8}+\\.+\\w{2,4}";
+        String chksdt = "[0-9]{9,11}";
+        try{
+            Date d = XDate.toDate(txtngaysinh.getText(), "dd-MM-yyyy");
+        }catch(Exception e){
+            Dialog.Message(this, "Vui lòng nhập đúng định dạng dd-mm-yyyy");
+        }
+        if (!txtemail.getText().matches(chkemail)) {
+            Dialog.Message(this, "Vui lòng nhập đúng định dạng email");
+            txtemail.requestFocus();
+            return false;
+        } else if (!txtsdt.getText().matches(chksdt)) {
+            Dialog.Message(this, "Vui lòng nhập đúng định dạng số điện thoại");
+            txtsdt.requestFocus();
+            return false;
+        }
+        return true;
+    }
 }

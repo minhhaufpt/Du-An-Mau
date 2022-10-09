@@ -65,8 +65,15 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         jLabel4.setText("Mật khẩu");
 
         txttendangnhap.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txttendangnhap.setText("minhhau");
+        txttendangnhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttendangnhapActionPerformed(evt);
+            }
+        });
 
         txtmatkhau.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtmatkhau.setText("1234");
 
         btndangnhap.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btndangnhap.setText("Đăng nhập");
@@ -138,6 +145,10 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     private void btnthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthoatActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnthoatActionPerformed
+
+    private void txttendangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttendangnhapActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttendangnhapActionPerformed
 
     /**
      * @param args the command line arguments

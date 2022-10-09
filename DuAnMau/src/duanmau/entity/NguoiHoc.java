@@ -37,6 +37,20 @@ public class NguoiHoc {
     public NguoiHoc() {
     }
 
+    public NguoiHoc(int i) {
+        if (i == 0) {
+            this.MaNH = "";
+            this.Hoten = "";
+            this.NgaySinh = null;
+            this.GioiTinh = true;
+            this.DienThoai = "";
+            this.Email = "";
+            this.GhiChu = "";
+            this.MaNV = "";
+            this.NgayDK = null;
+        }
+    }
+
     public String getMaNH() {
         return MaNH;
     }

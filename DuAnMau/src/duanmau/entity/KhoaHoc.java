@@ -4,6 +4,7 @@
  */
 package duanmau.entity;
 
+import duanmau.Help.XDate;
 import java.util.Date;
 
 /**
@@ -98,6 +99,15 @@ public class KhoaHoc {
     public void setNgayTao(Date NgayTao) {
         this.NgayTao = NgayTao;
     }
+    @Override
+    public String toString() {
+        return "Khóa "+ String.valueOf(this.MaKH)+ " ("+XDate.toString(NgayKG, "dd-MM-yyyy")+") - "+this.getGhiChu();
+    }
     
+//    @Override
+//    public boolean equals(Object obj){
+//        KhoaHoc other = (KhoaHoc) obj;
+//        return other.getMaKH() == this.getMaKH();
+//    }
 
 }

@@ -3,7 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package duanmau.GiaoDien;
+
+import duanmau.DAO.ChuyenDeDAO;
+import duanmau.DAO.KhoaHocDAO;
+import duanmau.Help.Dialog;
+import duanmau.Help.Login;
+import duanmau.Help.XDate;
+import duanmau.entity.ChuyenDe;
+import duanmau.entity.KhoaHoc;
+import java.util.Date;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author NguyenMinhHau_PS24488
@@ -13,12 +26,23 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
     /**
      * Creates new form Quanlichuyende
      */
+    ChuyenDeDAO cddao = new ChuyenDeDAO();
+    KhoaHocDAO khdao = new KhoaHocDAO();
+    public int row;
+
     public Quanlikhoahoc(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         readOnly();
+        init();
+    }
+
+    void init() {
         setLocationRelativeTo(null);
-        
+        this.fillComboxCD();
+        this.fillTable();
+        this.row = -1;
+        this.updateStatus();
     }
 
     /**
@@ -78,6 +102,11 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
                 "Mã khóa học", "Thời lượng", "Học phí", "Khai giảng", "Tạo bởi", "Ngày tạo"
             }
         ));
+        tblkhoahoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblkhoahocMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblkhoahoc);
         if (tblkhoahoc.getColumnModel().getColumnCount() > 0) {
             tblkhoahoc.getColumnModel().getColumn(0).setMinWidth(150);
@@ -118,6 +147,11 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
         jScrollPane1.setViewportView(txtghichu);
 
         btnthem.setText("Thêm");
+        btnthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemActionPerformed(evt);
+            }
+        });
 
         btnleftend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/leftend.png"))); // NOI18N
         btnleftend.setEnabled(false);
@@ -137,6 +171,11 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
 
         btnrightend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/rightend.png"))); // NOI18N
         btnrightend.setEnabled(false);
+        btnrightend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrightendActionPerformed(evt);
+            }
+        });
 
         btnright.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duanmau/image/icon/right.png"))); // NOI18N
         btnright.setEnabled(false);
@@ -155,9 +194,19 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
         });
 
         btnmoi.setText("Mới");
+        btnmoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmoiActionPerformed(evt);
+            }
+        });
 
         btnxoa.setText("Xóa");
         btnxoa.setEnabled(false);
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("Chuyên đề");
@@ -332,23 +381,62 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
+        Update();
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnleftendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftendActionPerformed
         // TODO add your handling code here:
+        leftend();
     }//GEN-LAST:event_btnleftendActionPerformed
 
     private void btnleftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftActionPerformed
         // TODO add your handling code here:
+        left();
     }//GEN-LAST:event_btnleftActionPerformed
 
     private void btnrightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightActionPerformed
         // TODO add your handling code here:
+        right();
     }//GEN-LAST:event_btnrightActionPerformed
 
     private void cbchuyendeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbchuyendeActionPerformed
         // TODO add your handling code here:
+        chonCD();
     }//GEN-LAST:event_cbchuyendeActionPerformed
+
+    private void tblkhoahocMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkhoahocMouseReleased
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.row = tblkhoahoc.getSelectedRow();
+//            Dialog.Message(this, String.valueOf(evt.getClickCount()));
+            this.edit();
+            txtkhaigiang.setText("");
+            txtghichu.setText("");
+            txttaoboi.setText("");
+            txtngaytao.setText("");
+            txtkhaigiang.requestFocus();
+        }
+    }//GEN-LAST:event_tblkhoahocMouseReleased
+
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        // TODO add your handling code here:
+        Insert();
+    }//GEN-LAST:event_btnthemActionPerformed
+
+    private void btnrightendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightendActionPerformed
+        // TODO add your handling code here:
+        rightend();
+    }//GEN-LAST:event_btnrightendActionPerformed
+
+    private void btnmoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmoiActionPerformed
+        // TODO add your handling code here:
+        clearForm();
+    }//GEN-LAST:event_btnmoiActionPerformed
+
+    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
+        // TODO add your handling code here:
+        Delete();
+    }//GEN-LAST:event_btnxoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,10 +514,196 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
     private javax.swing.JTextField txtthoiluong;
     // End of variables declaration//GEN-END:variables
     public void readOnly() {
-        txtchuyende.setRequestFocusEnabled(false);
-        txtngaytao.setRequestFocusEnabled(false);
-        txttaoboi.setRequestFocusEnabled(false);
-        txthocphi.setRequestFocusEnabled(false);
-        txtthoiluong.setRequestFocusEnabled(false);
+        txtchuyende.setEditable(false);
+        txtngaytao.setEditable(false);
+        txttaoboi.setEditable(false);
+        txthocphi.setEditable(false);
+        txtthoiluong.setEditable(false);
+    }
+//    void fillComboxCD(){
+//        cbchuyende.removeAllItems();
+//        List<ChuyenDe> lst = cddao.SelectAll();
+//        for (ChuyenDe cd : lst) {
+//            cbchuyende.addItem(cd.getTenCD());
+//        }
+//    }
+
+    void fillComboxCD() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbchuyende.getModel();
+        model.removeAllElements();
+        List<ChuyenDe> lst = cddao.SelectAll();
+        for (ChuyenDe cd : lst) {
+            model.addElement(cd);
+        }
+    }
+
+    void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblkhoahoc.getModel();
+        model.setRowCount(0);
+        try {
+            ChuyenDe chuyende = (ChuyenDe) cbchuyende.getSelectedItem();
+            List<KhoaHoc> lst = khdao.selectByCD(chuyende.getMaCD());
+
+            for (KhoaHoc kh : lst) {
+                Object[] row = {kh.getMaKH(), kh.getThoiLuong(), kh.getHocPhi(), XDate.toString(kh.getNgayKG(), "dd-MM-yyyy"), kh.getMaNV(), XDate.toString(kh.getNgayTao(), "dd-MM-yyyy")};
+                model.addRow(row);
+            }
+            tblkhoahoc.setDefaultEditor(Object.class, null);
+        } catch (Exception e) {
+            Dialog.Message(this, "Không thể truy vấn dữ liệu !");
+        }
+    }
+
+    void chonCD() {
+        ChuyenDe chuyende = (ChuyenDe) cbchuyende.getSelectedItem();
+        txtthoiluong.setText(String.valueOf(chuyende.getThoiLuong()));
+        txthocphi.setText(String.valueOf(chuyende.getHocPhi()));
+        txtchuyende.setText(chuyende.getTenCD());
+        txtghichu.setText(chuyende.getMoTa());
+        this.fillTable();
+        this.row = -1;
+        this.updateStatus();
+        tab.setSelectedIndex(0);
+    }
+
+    void setForm(KhoaHoc kh) {
+        String tencd = cddao.SelectID(kh.getMaCD()).getTenCD();
+        txtchuyende.setText(tencd);
+        txthocphi.setText(String.valueOf(kh.getHocPhi()));
+        txtthoiluong.setText(String.valueOf(kh.getThoiLuong()));
+//        txtngaytao.setText(XDate.toString(new Date(),"dd-MM-yyyy"));
+        txtngaytao.setText(XDate.toString(kh.getNgayTao(), "dd-MM-yyyy"));
+        txtkhaigiang.setText(XDate.toString(kh.getNgayKG(), "dd-MM-yyyy"));
+        txtghichu.setText(kh.getGhiChu());
+        txttaoboi.setText(kh.getMaNV());
+    }
+
+    void clearForm() {
+        txtkhaigiang.setText("");
+        txtghichu.setText("");
+        txtngaytao.setText(XDate.toString(new Date(), "dd-MM-yyyy"));
+        txttaoboi.setText(Login.user.getMaNV());
+        this.row = -1;
+        this.updateStatus();
+    }
+
+    void edit() {
+        String makh = String.valueOf(tblkhoahoc.getValueAt(this.row, 0));
+        KhoaHoc kh = khdao.SelectID(makh);
+        this.setForm(kh);
+        tab.setSelectedIndex(1);
+        this.updateStatus();
+    }
+
+    KhoaHoc getForm() {
+        ChuyenDe chuyende = (ChuyenDe) cbchuyende.getSelectedItem();
+        KhoaHoc kh = new KhoaHoc();
+        try {
+            kh.setMaKH(Integer.parseInt(String.valueOf(tblkhoahoc.getValueAt(this.row, 0))));
+        } catch (Exception e) {
+            kh.setMaKH(-1);
+        }
+        kh.setMaCD(chuyende.getMaCD());
+        kh.setThoiLuong(Integer.parseInt(txtthoiluong.getText()));
+        kh.setHocPhi(Double.parseDouble(txthocphi.getText()));
+        kh.setGhiChu(txtghichu.getText());
+        kh.setMaNV(Login.user.getMaNV());
+        kh.setNgayTao(new Date());
+        kh.setNgayKG(XDate.toDate(txtkhaigiang.getText(), "dd-MM-yyyy"));
+        return kh;
+    }
+
+    void Insert() {
+//         Dialog.Message(this,String.valueOf(cd.getMaCD())+" - "+String.valueOf(cd.getTenCD())+" - "+String.valueOf(cd.getHocPhi())+" - "+String.valueOf(cd.getThoiLuong())+" - "+String.valueOf(cd.getHinh())+" - "+String.valueOf(cd.getMoTa()));
+        if (checkValidate()) {
+            KhoaHoc cd = getForm();
+            try {
+                khdao.Insert(cd);
+                this.fillTable();
+                this.clearForm();
+                Dialog.Message(this, "Thêm mới thành công");
+            } catch (Exception e) {
+                Dialog.Message(this, "Xảy ra lỗi, không thể thêm mới - " + e);
+            }
+        }
+    }
+
+    void Update() {
+        if (checkValidate()) {
+            KhoaHoc kh = getForm();
+            try {
+                khdao.Update(kh);
+                this.fillTable();
+                Dialog.Message(this, "Cập nhật thành công");
+            } catch (Exception e) {
+                Dialog.Message(this, "Cập nhật thất bại");
+            }
+        }
+    }
+
+    void Delete() {
+        String macd = String.valueOf(tblkhoahoc.getValueAt(this.row, 0));
+        if (Dialog.Confirm(this, "Bạn thật sự muốn xóa khóa học này ?")) {
+            try {
+                khdao.Remove(macd);
+                this.fillTable();
+                this.clearForm();
+                Dialog.Message(this, "Xóa thành công");
+            } catch (Exception e) {
+                Dialog.Message(this, "Xảy ra lỗi, xóa thất bại");
+            }
+        }
+    }
+
+    void rightend() {
+
+        this.row = tblkhoahoc.getRowCount() - 1;
+        this.edit();
+    }
+
+    void leftend() {
+        this.row = 0;
+        this.edit();
+    }
+
+    void right() {
+        if (this.row < tblkhoahoc.getRowCount() - 1) {
+            this.row++;
+            this.edit();
+        }
+    }
+
+    void left() {
+        if (this.row > 0) {
+            this.row--;
+            this.edit();
+        }
+    }
+
+    void updateStatus() {
+        boolean edit = (this.row >= 0);
+        boolean leftend = (this.row == 0);
+        boolean rightend = (this.row == tblkhoahoc.getRowCount() - 1);
+        //trang thai from
+        btnthem.setEnabled(!edit);
+        btnsua.setEnabled(edit);
+        btnxoa.setEnabled(edit);
+        //nut chuyen tiep
+        btnleft.setEnabled(edit && !leftend);
+        btnleftend.setEnabled(edit && !leftend);
+        btnright.setEnabled(edit && !rightend);
+        btnrightend.setEnabled(edit && !rightend);
+    }
+
+    boolean checkValidate() {
+        if (txtkhaigiang.getText().equals("")) {
+            txtkhaigiang.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (this.row <= -1) {
+            Dialog.Message(this, "Vui lòng chọn khóa học");
+            return false;
+        }
+        return true;
     }
 }

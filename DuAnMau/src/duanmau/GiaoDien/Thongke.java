@@ -4,7 +4,18 @@
  */
 package duanmau.GiaoDien;
 
+import duanmau.DAO.KhoaHocDAO;
+import duanmau.DAO.ThongkeDAO;
+import duanmau.Help.Dialog;
+import duanmau.Help.JDBCHelper;
+import duanmau.Help.Login;
+import java.sql.*;
+import duanmau.entity.KhoaHoc;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,20 +26,30 @@ public class Thongke extends javax.swing.JDialog {
     /**
      * Creates new form Thongke
      */
+    KhoaHocDAO khdao = new KhoaHocDAO();
+    ThongkeDAO dao = new ThongkeDAO();
+
     public Thongke(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
     }
-    
+
     private void init() {
         setLocationRelativeTo(null);
+        fillComboxKH();
+        fillComboxNam();
+        fillTableBD();
+        fillTableDT();
+        fillTableNH();
+        fillTableDCD();
+        if (!Login.isManager()) {
+            tab.remove(3);
+        }
     }
-    
     public void setTabs(int i) {
         tab.setSelectedIndex(i);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,6 +92,11 @@ public class Thongke extends javax.swing.JDialog {
         jLabel2.setText("Khóa học :");
 
         cbkhoahoc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbkhoahoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbkhoahocActionPerformed(evt);
+            }
+        });
 
         tblkhoahoc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblkhoahoc.getTableHeader().setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -217,6 +243,11 @@ public class Thongke extends javax.swing.JDialog {
         jLabel5.setText("  Năm :");
 
         cbnam.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbnam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbnamActionPerformed(evt);
+            }
+        });
 
         tbldoanhthu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tbldoanhthu.getTableHeader().setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -308,6 +339,16 @@ public class Thongke extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbkhoahocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkhoahocActionPerformed
+        // TODO add your handling code here:
+        fillTableBD();
+    }//GEN-LAST:event_cbkhoahocActionPerformed
+
+    private void cbnamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbnamActionPerformed
+        // TODO add your handling code here:
+        fillTableDT();
+    }//GEN-LAST:event_cbnamActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -370,4 +411,88 @@ public class Thongke extends javax.swing.JDialog {
     private javax.swing.JTable tblkhoahoc;
     private javax.swing.JTable tblnguoihoc;
     // End of variables declaration//GEN-END:variables
+
+//     void fillComboxCD() {
+//        DefaultComboBoxModel model = (DefaultComboBoxModel) cbchuyende.getModel();
+//        model.removeAllElements();
+//        List<ChuyenDe> lst = cddao.SelectAll();
+//        for (ChuyenDe cd : lst) {
+//            model.addElement(cd);
+//        }
+//    }
+    void fillComboxKH() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbkhoahoc.getModel();
+        model.removeAllElements();
+        List<KhoaHoc> lst = khdao.SelectAll();
+        for (KhoaHoc kh : lst) {
+            model.addElement(kh);
+        }
+     
+    }
+
+    void fillTableBD() {
+        DefaultTableModel model = (DefaultTableModel) tblkhoahoc.getModel();
+        model.setRowCount(0);
+        KhoaHoc kh = (KhoaHoc) cbkhoahoc.getSelectedItem();
+        List<Object[]> lst = dao.getBangdiem(kh.getMaKH());
+        for (Object[] row : lst) {
+            float grade = Float.parseFloat(String.valueOf(row[2]));
+            model.addRow(new Object[]{row[0], row[1], grade, this.getXeploai(grade)});
+            tblkhoahoc.setDefaultEditor(Object.class, null);
+        }
+    }
+
+    void fillTableNH() {
+        DefaultTableModel model = (DefaultTableModel) tblnguoihoc.getModel();
+        model.setRowCount(0);
+        List<Object[]> lst = dao.getLuongNguoiHoc();     
+        for (Object[] row : lst) {
+            model.addRow(new Object[]{row[0], row[1], row[2], row[3]});
+        }
+        tblnguoihoc.setDefaultEditor(Object.class, null);
+    }
+
+    void fillTableDCD() {
+        DefaultTableModel model = (DefaultTableModel) tblchuyende.getModel();
+        model.setRowCount(0);
+        List<Object[]> lst = dao.getDiemChuyenDe();
+        for (Object[] row : lst) {
+            model.addRow(new Object[]{row[0], row[1], row[2], row[3], row[4]});
+        }
+        tblchuyende.setDefaultEditor(Object.class, null);
+    }
+
+    String getXeploai(float diem) {
+        if (diem < 5) {
+            return "Chưa đạt";
+        } else if (diem < 6.5) {
+            return "Chưa đạt";
+        } else if (diem < 7.5) {
+            return "Chưa đạt";
+        } else if (diem < 9) {
+            return "Chưa đạt";
+        }
+        return "Xuất sắc";
+    }
+
+    void fillComboxNam() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbnam.getModel();
+        model.removeAllElements();
+        List<Integer> lst = khdao.selectYears();
+        for (Integer y : lst) {
+            model.addElement(y);
+        }
+    }
+
+    void fillTableDT() {
+        DefaultTableModel model = (DefaultTableModel) tbldoanhthu.getModel();
+        model.setRowCount(0);
+        int nam = Integer.parseInt(String.valueOf(cbnam.getSelectedItem())) ;
+        List<Object[]> lst = dao.getDoanhThu(nam);
+        for (Object[] row : lst) {
+            model.addRow(row);
+        }
+        tbldoanhthu.setDefaultEditor(Object.class, null);
+    }
+
 }

@@ -13,8 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -448,7 +446,10 @@ public class GiaoDienChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_mniluongnguoihocActionPerformed
 
     private void mnidangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidangnhapActionPerformed
-        this.dangxuat();
+        if (Login.user != null) {
+            Dialog.Message(this, "Vui lòng đăng xuất trước khi đăng nhập");
+        } else
+            this.dangxuat();
     }//GEN-LAST:event_mnidangnhapActionPerformed
 
     private void mnidangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnidangxuatActionPerformed
@@ -654,8 +655,9 @@ public class GiaoDienChinh extends javax.swing.JFrame {
                 Dialog.Message(this, "Bạn không có quyền xem doanh thu");
             } else {
                 Thongke tk = new Thongke(this, true);
-                tk.setVisible(true);
                 tk.setTabs(index);
+                tk.setVisible(true);
+
             }
         } else {
             Dialog.Message(this, "Vui lòng đăng nhập");

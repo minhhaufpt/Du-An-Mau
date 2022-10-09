@@ -1,4 +1,4 @@
-USE DuAnMau 
+NgyUSE DuAnMau 
 go
 create table NhanVien
 (MaNV nvarchar(50) Not null,

@@ -117,21 +117,21 @@ public class Quanlichuyende extends javax.swing.JDialog {
         danhsachLayout.setHorizontalGroup(
             danhsachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(danhsachLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(25, 25, 25))
         );
         danhsachLayout.setVerticalGroup(
             danhsachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, danhsachLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(25, 25, 25))
         );
 
         tab.addTab("Danh sách", danhsach);
 
-        jLabel2.setText("Hình Logo");
+        jLabel2.setText("Hình 3x4");
 
         lbanh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lbanh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,9 +228,6 @@ public class Quanlichuyende extends javax.swing.JDialog {
             .addGroup(capnhatLayout.createSequentialGroup()
                 .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(capnhatLayout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(capnhatLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(capnhatLayout.createSequentialGroup()
@@ -267,7 +264,10 @@ public class Quanlichuyende extends javax.swing.JDialog {
                                     .addComponent(txtmacd)
                                     .addComponent(txthocphi)
                                     .addComponent(txtthoiluong)
-                                    .addComponent(txttencd))))))
+                                    .addComponent(txttencd)))))
+                    .addGroup(capnhatLayout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(jLabel2)))
                 .addContainerGap())
         );
         capnhatLayout.setVerticalGroup(
@@ -276,8 +276,7 @@ public class Quanlichuyende extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbanh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(capnhatLayout.createSequentialGroup()
                         .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -293,7 +292,8 @@ public class Quanlichuyende extends javax.swing.JDialog {
                         .addGap(28, 28, 28)
                         .addGroup(capnhatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(txthocphi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txthocphi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lbanh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -318,20 +318,20 @@ public class Quanlichuyende extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -531,28 +531,33 @@ public class Quanlichuyende extends javax.swing.JDialog {
     }
 
     void Insert() {
-        ChuyenDe cd = getForm();
-//         Dialog.Message(this,String.valueOf(cd.getMaCD())+" - "+String.valueOf(cd.getTenCD())+" - "+String.valueOf(cd.getHocPhi())+" - "+String.valueOf(cd.getThoiLuong())+" - "+String.valueOf(cd.getHinh())+" - "+String.valueOf(cd.getMoTa()));
-        try {
-            dao.Insert(cd);
-            this.fillTable();
-            this.clearForm();
-            Dialog.Message(this, "Thêm mới thành công");
-        } catch (Exception e) {
-            Dialog.Message(this, "Đã tồn tại mã chuyên đề tương tự, không thể thêm mới \nMã lỗi : " + e);
-        }
 
+//         Dialog.Message(this,String.valueOf(cd.getMaCD())+" - "+String.valueOf(cd.getTenCD())+" - "+String.valueOf(cd.getHocPhi())+" - "+String.valueOf(cd.getThoiLuong())+" - "+String.valueOf(cd.getHinh())+" - "+String.valueOf(cd.getMoTa()));
+        if (checkValidate()) {
+            ChuyenDe cd = getForm();
+            try {
+                dao.Insert(cd);
+                this.fillTable();
+                this.clearForm();
+                Dialog.Message(this, "Thêm mới thành công");
+            } catch (Exception e) {
+                Dialog.Message(this, "Đã tồn tại mã chuyên đề tương tự, không thể thêm mới");
+            }
+        }
     }
 
     void Update() {
-        ChuyenDe cd = getForm();
-        try {
-            dao.Update(cd);
-            this.fillTable();
-            Dialog.Message(this, "Cập nhật thành công");
 
-        } catch (Exception e) {
-            Dialog.Message(this, "Cập nhật thất bại");
+        if (checkValidate()) {
+            ChuyenDe cd = getForm();
+            try {
+                dao.Update(cd);
+                this.fillTable();
+                Dialog.Message(this, "Cập nhật thành công");
+
+            } catch (Exception e) {
+                Dialog.Message(this, "Cập nhật thất bại");
+            }
         }
     }
 
@@ -568,16 +573,16 @@ public class Quanlichuyende extends javax.swing.JDialog {
                 Dialog.Message(this, "Xảy ra lỗi, xóa thất bại");
             }
         }
-
     }
 
     void rightend() {
-        this.row = 0;
+
+        this.row = tblchuyende.getRowCount() - 1;
         this.edit();
     }
 
     void leftend() {
-        this.row = tblchuyende.getRowCount() - 1;
+        this.row = 0;
         this.edit();
     }
 
@@ -597,8 +602,8 @@ public class Quanlichuyende extends javax.swing.JDialog {
 
     void updateStatus() {
         boolean edit = (this.row >= 0);
-        boolean rightend = (this.row == 0);
-        boolean leftend = (this.row == tblchuyende.getRowCount() - 1);
+        boolean leftend  = (this.row == 0);
+        boolean rightend = (this.row == tblchuyende.getRowCount() - 1);
         //trang thai from
         txtmacd.setEditable(!edit);
         btnthem.setEnabled(!edit);
@@ -611,4 +616,38 @@ public class Quanlichuyende extends javax.swing.JDialog {
         btnrightend.setEnabled(edit && !rightend);
     }
 
+    boolean checkValidate() {
+        if (txtmacd.getText().equals("")) {
+            txtmacd.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txttencd.getText().equals("")) {
+            txttencd.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txtthoiluong.getText().equals("")) {
+            txtthoiluong.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        } else if (txthocphi.getText().equals("")) {
+            txthocphi.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
+            return false;
+        }
+        try {
+            int k = Integer.parseInt(txtthoiluong.getText());
+        } catch (NumberFormatException e) {
+            Dialog.Message(this, "Vui lòng nhập thời lượng là số nguyên");
+            txtthoiluong.requestFocus();
+            return false;
+        }
+        try {
+            double p = Double.parseDouble(txthocphi.getText());
+        } catch (NumberFormatException e) {
+            Dialog.Message(this, "Vui lòng nhập học phí là số");
+            txthocphi.requestFocus();
+            return false;
+        }
+        return true;
+    }
 }

@@ -34,25 +34,25 @@ public class ThongkeDAO {
 
     public List<Object[]> getBangdiem(int makh) {
         String sql = "{CALL sp_BangDiem(?)}";
-        String[] cols = {"MaNH", "Hoten", "Diem"};
+        String[] cols = {"MaNH", "Hoten", "Grade"};
         return this.getListOfArray(sql, cols, makh);
     }
 
     public List<Object[]> getLuongNguoiHoc() {
-        String sql = "{CALL sq_ThongKeNguoiHoc}";
-        String[] cols = {"Nam", "SoLuong", "DauTien", "Cuoicung"};
+        String sql = "{CALL sp_ThongKeNguoiHoc}";
+        String[] cols = {"Nam", "SoLuong", "Dautien", "CuoiCung"};
         return this.getListOfArray(sql, cols);
     }
 
     public List<Object[]> getDiemChuyenDe() {
-        String sql = "{CALL sq_ThongKeDiem}";
+        String sql = "{CALL sp_ThongKeDiem}";
         String[] cols = {"ChuyenDe", "SoHV", "ThapNhat", "CaoNhat", "TrungBinh"};
         return this.getListOfArray(sql, cols);
     }
 
     public List<Object[]> getDoanhThu(int nam) {
-        String sql = "{CALL sq_ThongKeDoanhThu}";
-        String[] cols = {"ChuyenDe", "SoKH", "SoHV", "DoanhThu", "CaoNhat", "TrungBinh"};
+        String sql = "{CALL sp_ThongKeDoanhThu(?)}";
+        String[] cols = {"ChuyenDe", "SoKH", "SoHV", "DoanhThu","Thapnhat", "CaoNhat", "TrungBinh"};
         return this.getListOfArray(sql, cols, nam);
     }
 }
