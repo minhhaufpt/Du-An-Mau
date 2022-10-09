@@ -1,4 +1,4 @@
 file sql chạy excuce của SQL trong đó 1 thêm 1 triger để thay cho update case 
-file code .java nằm trong cây thư mục src 
-có 2 file doc 1 file là báo cáo đang xây dựng 1 file là báo cáo mẫu có sẵn barem
+file code .java nằm trong cây thư mục src (thư mục DuAnMa là 1 Project)
+file báo cáo chưa hoàn thiện đợi update
 Sơ đồ usecase đang hoàn thiện
