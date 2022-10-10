@@ -1,0 +1,4 @@
+CodeExeBeforRun là file innosetup để tạo file setup ko cần quan tâm nhiều 
+database là file chứa sql 
+File setup sẽ chứa file cài đặt
+file .jar là file đc build ra từ netbeans nha

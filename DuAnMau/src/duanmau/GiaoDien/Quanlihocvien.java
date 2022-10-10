@@ -512,7 +512,13 @@ public class Quanlihocvien extends javax.swing.JDialog {
         for (int i = 0; i < tblhocvien.getRowCount(); i++) {
             String mahv = String.valueOf(tblhocvien.getValueAt(i, 2));
             HocVien hv = hvdao.SelectID(mahv);
-            hv.setGrade(Float.parseFloat(String.valueOf(tblhocvien.getValueAt(i, 4))));
+            float diem = Float.parseFloat(String.valueOf(tblhocvien.getValueAt(i, 4)));
+            if (diem < 0 || diem > 11) {
+                Dialog.Message(this, "Vui lòng kiểm tra lại giá trị điểm không nhỏ hơn 0 và vượt quá 10");
+                return;
+            } else {
+                hv.setGrade(diem);
+            }
             hvdao.Update(hv);
         }
         Dialog.Message(this, "Cập nhật điểm thành công");
@@ -522,7 +528,7 @@ public class Quanlihocvien extends javax.swing.JDialog {
         if (this.rowhv <= -1) {
             btnxoa.setEnabled(false);
             btncapnhat.setEnabled(false);
-        }else {
+        } else {
             btnxoa.setEnabled(true);
             btncapnhat.setEnabled(true);
         }
@@ -532,4 +538,5 @@ public class Quanlihocvien extends javax.swing.JDialog {
             btnthem.setEnabled(true);
         }
     }
+
 }

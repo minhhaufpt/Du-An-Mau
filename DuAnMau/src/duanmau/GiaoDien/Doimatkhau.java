@@ -89,6 +89,11 @@ public class Doimatkhau extends javax.swing.JDialog {
 
         btnhuybo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnhuybo.setText("Hủy bỏ");
+        btnhuybo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhuyboActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,7 +162,14 @@ public class Doimatkhau extends javax.swing.JDialog {
 
     private void btnthaydoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthaydoiActionPerformed
         // TODO add your handling code here:
+        doimatkhau();
+        huybo();
     }//GEN-LAST:event_btnthaydoiActionPerformed
+
+    private void btnhuyboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhuyboActionPerformed
+        // TODO add your handling code here:
+        huybo();
+    }//GEN-LAST:event_btnhuyboActionPerformed
 
     /**
      * @param args the command line arguments
