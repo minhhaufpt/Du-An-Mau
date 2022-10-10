@@ -496,6 +496,8 @@ public class Quanlichuyende extends javax.swing.JDialog {
     void clearForm() {
         ChuyenDe cd = new ChuyenDe();
         this.setForm(cd);
+        lbanh.setIcon(null);
+        lbanh.setToolTipText(null);
         this.row = -1;
         this.updateStatus();
     }

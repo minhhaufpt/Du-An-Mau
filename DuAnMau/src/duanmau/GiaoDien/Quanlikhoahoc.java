@@ -402,6 +402,7 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
     private void cbchuyendeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbchuyendeActionPerformed
         // TODO add your handling code here:
         chonCD();
+        clearForm();
     }//GEN-LAST:event_cbchuyendeActionPerformed
 
     private void tblkhoahocMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkhoahocMouseReleased
@@ -410,10 +411,6 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
             this.row = tblkhoahoc.getSelectedRow();
 //            Dialog.Message(this, String.valueOf(evt.getClickCount()));
             this.edit();
-            txtkhaigiang.setText("");
-            txtghichu.setText("");
-            txttaoboi.setText("");
-            txtngaytao.setText("");
             txtkhaigiang.requestFocus();
         }
     }//GEN-LAST:event_tblkhoahocMouseReleased
@@ -615,7 +612,7 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
 
     void Insert() {
 //         Dialog.Message(this,String.valueOf(cd.getMaCD())+" - "+String.valueOf(cd.getTenCD())+" - "+String.valueOf(cd.getHocPhi())+" - "+String.valueOf(cd.getThoiLuong())+" - "+String.valueOf(cd.getHinh())+" - "+String.valueOf(cd.getMoTa()));
-        if (checkValidate()) {
+        if (checkValidateInsert()) {
             KhoaHoc cd = getForm();
             try {
                 khdao.Insert(cd);
@@ -629,7 +626,7 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
     }
 
     void Update() {
-        if (checkValidate()) {
+        if (checkValidateUpdate()) {
             KhoaHoc kh = getForm();
             try {
                 khdao.Update(kh);
@@ -650,7 +647,7 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
                 this.clearForm();
                 Dialog.Message(this, "Xóa thành công");
             } catch (Exception e) {
-                Dialog.Message(this, "Xảy ra lỗi, xóa thất bại");
+                Dialog.Message(this, "Khóa học này đang tồn tại học viên theo học hoặc xung đột dữ liệu, xóa thất bại");
             }
         }
     }
@@ -695,13 +692,22 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
         btnrightend.setEnabled(edit && !rightend);
     }
 
-    boolean checkValidate() {
+    boolean checkValidateUpdate() {
         if (txtkhaigiang.getText().equals("")) {
             txtkhaigiang.requestFocus();
             Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
             return false;
         } else if (this.row <= -1) {
             Dialog.Message(this, "Vui lòng chọn khóa học");
+            return false;
+        }
+        return true;
+    }
+
+    boolean checkValidateInsert() {
+        if (txtkhaigiang.getText().equals("")) {
+            txtkhaigiang.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
             return false;
         }
         return true;
