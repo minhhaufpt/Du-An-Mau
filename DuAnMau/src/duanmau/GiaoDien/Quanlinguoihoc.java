@@ -8,14 +8,10 @@ import duanmau.DAO.NguoiHocDAO;
 import duanmau.Help.Dialog;
 import duanmau.Help.Login;
 import duanmau.Help.XDate;
-import duanmau.Help.XImage;
 import duanmau.entity.NguoiHoc;
-import java.awt.Image;
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 
 /**

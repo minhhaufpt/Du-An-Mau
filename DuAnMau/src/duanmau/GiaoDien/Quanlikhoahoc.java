@@ -710,6 +710,13 @@ public class Quanlikhoahoc extends javax.swing.JDialog {
             Dialog.Message(this, "Vui lòng nhập đầy đủ thông tin");
             return false;
         }
+        try {
+            XDate.toDate(txtkhaigiang.getText(), "dd-MM-yyyy");
+        } catch (Exception e) {
+            txtkhaigiang.requestFocus();
+            Dialog.Message(this, "Vui lòng nhập đúng định dạng ngày");
+            return false;
+        }
         return true;
     }
 }

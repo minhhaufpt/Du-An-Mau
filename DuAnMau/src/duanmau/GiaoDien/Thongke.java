@@ -6,12 +6,8 @@ package duanmau.GiaoDien;
 
 import duanmau.DAO.KhoaHocDAO;
 import duanmau.DAO.ThongkeDAO;
-import duanmau.Help.Dialog;
-import duanmau.Help.JDBCHelper;
 import duanmau.Help.Login;
-import java.sql.*;
 import duanmau.entity.KhoaHoc;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
