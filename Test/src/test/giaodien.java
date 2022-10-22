@@ -164,9 +164,9 @@ public class giaodien extends javax.swing.JFrame {
         // TODO add your handling code here:
         String timkiem = txttimkiem.getText();
         timkiem = timkiem.trim();
-         try {
+        try {
             ConnectSQLSever c = new ConnectSQLSever();
-            String sql = "select * from sach where TenSach like N'%"+timkiem+"%'";
+            String sql = "select * from sach where TenSach like N'%" + timkiem + "%'";
             Connection con = c.getConnection();
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
